@@ -1,0 +1,15 @@
+[Tendons Param]=initial(Param);
+[Points, Neighbours,PointsNumber,Map] = convTendons(Tendons);
+M = Param.M;
+M1dec=M(:,1);
+M2dec=M(:,2);
+M3dec=M(:,3);
+M4dec=M(:,4);
+MuscleForces = [0.250*9.8;0.500*9.8;0.250*9.8;0.500*9.8];
+Forces=zeros(size(Points));
+Forces(17,:)=GetForceVect(Points(17,:)',M2dec,Param,MuscleForces(2));
+Forces(18,:)=MuscleForces(1)*(M1dec-Points(18,:)')/modulus(M1dec-Points(18,:)');
+Forces(19,:)=MuscleForces(3)*(M3dec-Points(19,:)')/modulus(M3dec-Points(19,:)');
+Forces(20,:)=MuscleForces(4)*(M4dec-Points(20,:)')/modulus(M4dec-Points(20,:)');
+Points = PointMove(Points,Neighbours,Forces,Param, PointsNumber);
+Tendons2 = iconvTendons(Points,PointsNumber);

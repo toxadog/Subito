@@ -1,0 +1,27 @@
+﻿<?xml version="1.0"?>
+<BONES>
+     <PHALANX>
+          <TITLE> DISTAL </TITLE>
+          <LENGTH> 17.4 </LENGTH>
+          <RADIUS> 2.50 </RADIUS>
+          <SPHERE> 0 </SPHERE>
+     </PHALANX>
+     <PHALANX>
+          <TITLE> INTERMEDIATE </TITLE>
+          <LENGTH> 26.33 </LENGTH>
+          <RADIUS> 3.00  </RADIUS>
+          <SPHERE> 4.0014 </SPHERE>
+     </PHALANX>
+     <PHALANX>
+          <TITLE> PROXIMAL </TITLE>
+          <LENGTH> 44.63 </LENGTH>
+          <RADIUS> 4.00 </RADIUS>
+          <SPHERE> 5.41 </SPHERE>
+     </PHALANX>
+     <METACARPAL>
+          <TITLE> METACARPAL </TITLE>
+          <LENGTH> 64.6 </LENGTH>
+          <RADIUS> 5.00 </RADIUS>
+          <SPHERE> 6.00 </SPHERE>
+     </METACARPAL>
+</BONES>

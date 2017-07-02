@@ -1,0 +1,166 @@
+﻿<?xml version="1.0"?>
+<TENDONS>
+     <TENDON>
+          <NUMBER> 1 </NUMBER>
+          <LENGTH> 10.00 </LENGTH>
+          <CSA> 0.9e-6 </CSA>
+          <YOUNGS_MOD>96.97e6</YOUNGS_MOD>
+     </TENDON>
+     <TENDON>
+          <NUMBER> 2u </NUMBER>
+          <LENGTH> 13.77 </LENGTH>
+          <CSA> 1.1e-6 </CSA>
+          <YOUNGS_MOD>157.02e6</YOUNGS_MOD>
+     </TENDON>
+     <TENDON>
+          <NUMBER> 2r </NUMBER>
+          <LENGTH> 13.77 </LENGTH>
+          <CSA> 1.1e-6 </CSA>
+          <YOUNGS_MOD>157.02e6</YOUNGS_MOD>
+     </TENDON>
+     <TENDON>
+          <NUMBER> 3u </NUMBER>
+          <LENGTH> 4.63 </LENGTH>
+          <CSA> 1.1e-6 </CSA>
+          <YOUNGS_MOD>157.02e6</YOUNGS_MOD>
+     </TENDON>
+     <TENDON>
+          <NUMBER> 3r </NUMBER>
+          <LENGTH> 4.63 </LENGTH>
+          <CSA> 1.1e-6 </CSA>
+          <YOUNGS_MOD>157.02e6</YOUNGS_MOD>
+     </TENDON>
+     <TENDON>
+          <NUMBER> 4u </NUMBER>
+          <LENGTH> 39.1 </LENGTH>
+          <CSA> 1.1e-6 </CSA>
+          <YOUNGS_MOD>157.02e6</YOUNGS_MOD>
+     </TENDON>
+     <TENDON>
+          <NUMBER> 4r </NUMBER>
+          <LENGTH> 39.1 </LENGTH>
+          <CSA> 1.1e-6 </CSA>
+          <YOUNGS_MOD>157.02e6</YOUNGS_MOD>
+     </TENDON>
+     <TENDON>
+          <NUMBER> 5u </NUMBER>
+          <LENGTH> 38.00010822 </LENGTH>
+          <CSA> 1.1e-6 </CSA>
+          <YOUNGS_MOD>157.02e6</YOUNGS_MOD>
+     </TENDON>
+     <TENDON>
+          <NUMBER> 5r </NUMBER>
+          <LENGTH> 38.00010822 </LENGTH>
+          <CSA> 1.1e-6 </CSA>
+          <YOUNGS_MOD>157.02e6</YOUNGS_MOD>
+     </TENDON>
+     <TENDON>
+          <NUMBER> 6 </NUMBER>
+          <LENGTH> 11.2 </LENGTH>
+          <CSA> 1.1e-6 </CSA>
+          <YOUNGS_MOD>125.31e6</YOUNGS_MOD>
+     </TENDON>
+     <TENDON>
+          <NUMBER> 7u </NUMBER>
+          <LENGTH> 32.700021149 </LENGTH>
+          <CSA> 1.1e-6 </CSA>
+          <YOUNGS_MOD>157.02e6</YOUNGS_MOD>
+     </TENDON>
+     <TENDON>
+          <NUMBER> 7r </NUMBER>
+          <LENGTH> 32.700021149 </LENGTH>
+          <CSA> 1.1e-6 </CSA>
+          <YOUNGS_MOD>157.02e6</YOUNGS_MOD>
+     </TENDON>
+     <TENDON>
+          <NUMBER> 8 </NUMBER>
+          <LENGTH> 31.6 </LENGTH>
+          <CSA> 1.5e-6 </CSA>
+          <YOUNGS_MOD>114.03e6</YOUNGS_MOD>
+     </TENDON>
+     <LIGAMENT>
+          <NUMBER> 9 </NUMBER>
+          <LENGTH> 5.4 </LENGTH>
+          <CSA> 0.3e-6 </CSA>
+          <YOUNGS_MOD>150.00e6</YOUNGS_MOD>
+     </LIGAMENT>
+     <TENDON>
+          <NUMBER> 10u </NUMBER>
+          <LENGTH> 5.8 </LENGTH>
+          <CSA> 1.1e-6 </CSA>
+          <YOUNGS_MOD>64.87e6</YOUNGS_MOD>
+     </TENDON>
+     <TENDON>
+          <NUMBER> 10r </NUMBER>
+          <LENGTH> 5.8 </LENGTH>
+          <CSA> 1.1e-6 </CSA>
+          <YOUNGS_MOD>64.87e6</YOUNGS_MOD>
+     </TENDON>
+     <TENDON>
+          <NUMBER> 11u </NUMBER>
+          <LENGTH> 7.6 </LENGTH>
+          <CSA> 1.1e-6 </CSA>
+          <YOUNGS_MOD>64.87e6</YOUNGS_MOD>
+     </TENDON>
+     <TENDON>
+          <NUMBER> 11r </NUMBER>
+          <LENGTH> 7.6 </LENGTH>
+          <CSA> 1.1e-6 </CSA>
+          <YOUNGS_MOD>64.87e6</YOUNGS_MOD>
+     </TENDON>
+     <TENDON>
+          <NUMBER> 12 </NUMBER>
+          <LENGTH> 14.7 </LENGTH>
+          <CSA> 1.5e-6 </CSA>
+          <YOUNGS_MOD>114.03e6</YOUNGS_MOD>
+     </TENDON>
+     <TENDON>
+          <NUMBER> 13u </NUMBER>
+          <LENGTH> 14.7 </LENGTH>
+          <CSA> 1.1e-6 </CSA>
+          <YOUNGS_MOD>157.02e6</YOUNGS_MOD>
+     </TENDON>
+     <TENDON>
+          <NUMBER> 13r </NUMBER>
+          <LENGTH> 14.7 </LENGTH>
+          <CSA> 1.1e-6 </CSA>
+          <YOUNGS_MOD>157.02e6</YOUNGS_MOD>
+     </TENDON>
+      <TENDON>
+          <NUMBER> 14 </NUMBER>
+          <LENGTH> 25 </LENGTH>
+          <CSA> 1.5e-6 </CSA>
+          <YOUNGS_MOD>114.03e6</YOUNGS_MOD>
+     </TENDON>
+     <TENDON>
+          <NUMBER> 15u </NUMBER>
+          <LENGTH> 17 </LENGTH>
+          <CSA> 0.3e-6 </CSA>
+          <YOUNGS_MOD>150.00e6</YOUNGS_MOD>
+     </TENDON>
+      <TENDON>
+          <NUMBER> 15r </NUMBER>
+          <LENGTH> 17  </LENGTH>
+          <CSA> 0.3e-6 </CSA>
+          <YOUNGS_MOD>150.00e6</YOUNGS_MOD>
+     </TENDON>
+     <TENDON>
+          <NUMBER> 16u </NUMBER>
+          <LENGTH> 20 </LENGTH>
+          <CSA> 0.3e-6 </CSA>
+          <YOUNGS_MOD>150.00e6</YOUNGS_MOD>
+     </TENDON>
+      <TENDON>
+          <NUMBER> 16r </NUMBER>
+          <LENGTH> 20 </LENGTH>
+          <CSA> 0.3e-6 </CSA>
+          <YOUNGS_MOD>150.00e6</YOUNGS_MOD>
+     </TENDON>
+      <TENDON>
+          <NUMBER> 17 </NUMBER>
+          <LENGTH> 25 </LENGTH>
+          <CSA> 0.3e-6 </CSA>
+          <YOUNGS_MOD>150.00e6</YOUNGS_MOD>
+     </TENDON>
+
+</TENDONS>
