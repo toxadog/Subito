@@ -43,42 +43,42 @@ Ku=createPointTrans(J,L(17),Param);
 Kr=createPointTrans(J,-L(17),Param);
 % N=createPointLong(J,L(22),Param);
 %Transfor from local to global
-O1dec=local2cart(O1,DIP,PIP,MCP,Param);
-Adec=local2cart(A,DIP,PIP,MCP,Param);
-O2dec=local2cart(O2,DIP,PIP,MCP,Param);
-O3udec=local2cart(O3u,DIP,PIP,MCP,Param);
-O3rdec=local2cart(O3r,DIP,PIP,MCP,Param);
-Cdec=local2cart(C,DIP,PIP,MCP,Param);
-Eudec=local2cart(Eu,DIP,PIP,MCP,Param);
-Erdec=local2cart(Er,DIP,PIP,MCP,Param);
-Fdec=local2cart(F,DIP,PIP,MCP,Param);
-Jdec=local2cart(J,DIP,PIP,MCP,Param);
-Kudec=local2cart(Ku,DIP,PIP,MCP,Param);
-Krdec=local2cart(Kr,DIP,PIP,MCP,Param);
-Hudec=local2cart(Hu,DIP,PIP,MCP,Param);
-Hrdec=local2cart(Hr,DIP,PIP,MCP,Param);
+Node(:,1)=local2cart(O1,DIP,PIP,MCP,Param);
+Node(:,2)=local2cart(O2,DIP,PIP,MCP,Param);
+Node(:,3)=local2cart(O3u,DIP,PIP,MCP,Param);
+Node(:,4)=local2cart(O3r,DIP,PIP,MCP,Param);
+Node(:,5)=local2cart(A,DIP,PIP,MCP,Param);
+Node(:,6)=local2cart(Hu,DIP,PIP,MCP,Param);
+Node(:,7)=local2cart(Hr,DIP,PIP,MCP,Param);
+Node(:,8)=local2cart(C,DIP,PIP,MCP,Param);
+Node(:,9)=local2cart(F,DIP,PIP,MCP,Param);
+Node(:,10)=local2cart(Eu,DIP,PIP,MCP,Param);
+Node(:,11)=local2cart(Er,DIP,PIP,MCP,Param);
+Node(:,12)=local2cart(J,DIP,PIP,MCP,Param);
+Node(:,13)=local2cart(Ku,DIP,PIP,MCP,Param);
+Node(:,14)=local2cart(Kr,DIP,PIP,MCP,Param);
+
 %Muscle attachements
-Qudec=Kudec+L(25)*(M(:,1)-Kudec)/modulus(M(:,1)-Kudec);
-% Ndec=local2cart(N,DIP,PIP,MCP,Param);
-Ndec=Jdec+L(22)*(M(:,2)-Jdec)/modulus(M(:,2)-Jdec);
-Qrdec=Krdec+L(26)*(M(:,3)-Krdec)/modulus(M(:,3)-Krdec);
-Rdec=Erdec+L(27)*(M(:,4)-Erdec)/modulus(M(:,4)-Erdec);
+Node(:,15)=Node(:,13)+L(25)*(M(:,1)-Node(:,13))/modulus(M(:,1)-Node(:,13));
+Node(:,16)=Node(:,12)+L(22)*(M(:,2)-Node(:,12))/modulus(M(:,2)-Node(:,12));
+Node(:,17)=Node(:,14)+L(26)*(M(:,3)-Node(:,14))/modulus(M(:,3)-Node(:,14));
+Node(:,18)=Node(:,11)+L(27)*(M(:,4)-Node(:,11))/modulus(M(:,4)-Node(:,11));
 
 %% Create pricipal tendons
-Tendons.t1=CreateBand(O1dec,Adec,round(L(1)*pointsdens));
-Tendons.t4u=CreateBandConstr(Hudec,Eudec,PulleyPIPu,Param,round(L(6)*pointsdens));
-Tendons.t4r=CreateBandConstr(Hrdec,Erdec,PulleyPIPr,Param,round(L(6)*pointsdens));
-Tendons.t6=CreateBand(O2dec,Cdec,round(L(10)*pointsdens));
-Tendons.t8=CreateBand(Cdec,Fdec,round(L(13)*pointsdens));
-Tendons.t15u=CreateBand(Hudec,O3udec,round(L(23)*pointsdens));
-Tendons.t15r=CreateBand(Hrdec,O3rdec,round(L(24)*pointsdens));
-Tendons.t16u=CreateBandConstr(Kudec,Qudec,PulleyIntu,Param,round(L(25)*pointsdens));
-Tendons.t14=CreateBandConstr(Jdec,Ndec,bonepoints(:,2),Param,round(L(22)*pointsdens));
-Tendons.t16r=CreateBandConstr(Krdec,Qrdec,PulleyIntr,Param,round(L(26)*pointsdens));
-Tendons.t17=CreateBandConstr(Erdec,Rdec,PulleyLu,Param,round(L(27)*pointsdens));
+Tendons.t1=CreateBand(Node(:,1),Node(:,5),round(L(1)*pointsdens));
+Tendons.t2=CreateBandConstr(Node(:,6),Node(:,10),PulleyPIPu,Param,round(L(6)*pointsdens));
+Tendons.t3=CreateBandConstr(Node(:,7),Node(:,11),PulleyPIPr,Param,round(L(6)*pointsdens));
+Tendons.t4=CreateBand(Node(:,2),Node(:,8),round(L(10)*pointsdens));
+Tendons.t5=CreateBand(Node(:,8),Node(:,9),round(L(13)*pointsdens));
+Tendons.t6=CreateBand(Node(:,6),Node(:,3),round(L(23)*pointsdens));
+Tendons.t7=CreateBand(Node(:,7),Node(:,4),round(L(24)*pointsdens));
+Tendons.t8=CreateBandConstr(Node(:,13),Node(:,15),PulleyIntu,Param,round(L(25)*pointsdens));
+Tendons.t9=CreateBandConstr(Node(:,12),Node(:,16),bonepoints(:,2),Param,round(L(22)*pointsdens));
+Tendons.t10=CreateBandConstr(Node(:,14),Node(:,17),PulleyIntr,Param,round(L(26)*pointsdens));
+Tendons.t11=CreateBandConstr(Node(:,11),Node(:,18),PulleyLu,Param,round(L(27)*pointsdens));
 %% Create intercrossing fibers
 RR=[0.3 0.3; 0.8 0.8];
-Lg=[size(Tendons.t4u,2) size(Tendons.t4u,2);size(Tendons.t8,2)  size(Tendons.t8,2)];
+Lg=[size(Tendons.t2,2) size(Tendons.t2,2);size(Tendons.t5,2)  size(Tendons.t5,2)];
 LL=round(Lg.*RR);
 Points11=1:round(LL(1,1));
 Points22=Lg(2,2)+1-round(LL(2,2)):Lg(2,2);
@@ -100,33 +100,28 @@ Line1=[Lline1;Rline1];
 [Lline2 Rline2] = getGrid(Points12,Points21);
 Line2=[Lline2;Rline2];
 for i=1:size(Line1,2)
-    Tendons.(horzcat('gr1_',int2str(i)))=CreateBandConstr(Tendons.t4u(:,Line1(1,i)),Tendons.t8(:,Line1(2,i)),PulleyPIPu,Param,40);
+    Tendons.(horzcat('gr1_',int2str(i)))=CreateBandConstr(Tendons.t2(:,Line1(1,i)),Tendons.t5(:,Line1(2,i)),PulleyPIPu,Param,40);
 end
 for i=1:size(Line2,2)
-    Tendons.(horzcat('gr2_',int2str(i)))=CreateBand(Tendons.t4u(:,Line2(1,i)),Tendons.t8(:,Line2(2,i)),40);
+    Tendons.(horzcat('gr2_',int2str(i)))=CreateBand(Tendons.t2(:,Line2(1,i)),Tendons.t5(:,Line2(2,i)),40);
 end
 for i=1:size(Line2,2)
-    Tendons.(horzcat('gr3_',int2str(i)))=CreateBand(Tendons.t4r(:,Line2(1,i)),Tendons.t8(:,Line2(2,i)),40);
+    Tendons.(horzcat('gr3_',int2str(i)))=CreateBand(Tendons.t3(:,Line2(1,i)),Tendons.t5(:,Line2(2,i)),40);
 end
 for i=1:size(Line1,2)
-    Tendons.(horzcat('gr4_',int2str(i)))=CreateBandConstr(Tendons.t4r(:,Line1(1,i)),Tendons.t8(:,Line1(2,i)),PulleyPIPr,Param,40);
+    Tendons.(horzcat('gr4_',int2str(i)))=CreateBandConstr(Tendons.t3(:,Line1(1,i)),Tendons.t5(:,Line1(2,i)),PulleyPIPr,Param,40);
 end
 
 %% Create membtanes
-
-Tendons.m1=makeTriang(Hrdec,Hudec,Adec,Param);
-Tendons.m2u=makeQuad(Jdec,Kudec,Eudec,Fdec,Param);
-Tendons.m3r=makeQuad(Jdec,Krdec,Erdec,Fdec,Param);
+Tendons.m1=makeTriang(Node(:,7),Node(:,6),Node(:,5),Param);
+Tendons.m2=makeQuad(Node(:,12),Node(:,13),Node(:,10),Node(:,9),Param);
+Tendons.m3=makeQuad(Node(:,12),Node(:,14),Node(:,11),Node(:,9),Param);
 %%
 Nodes=0;
 %% Pushout Tendons
 Tendons=PushoutTendon(Tendons,Param);
 %%
-NNodes=18;
-Nbands=11;
-NGrid=2*size(Lline1,2)+2*size(Lline1,2);
-NMemb=3;
-
+% NElements=size(Nodes,2)+
 
 end
 
