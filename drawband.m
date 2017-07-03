@@ -9,7 +9,7 @@ if size(Tendons.(char(names(1))),1)==3
         band=Tendons.(char(names(i)));
         bname=char(names(i));
         if ismatrix(band)
-            if bname(1)=='t'
+            if (bname(1)=='t')||(bname(1)=='n')
                 linewidth=4;
             else
                 linewidth=1;
