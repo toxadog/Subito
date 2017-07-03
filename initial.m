@@ -42,7 +42,7 @@ J=createPointLong(F,L(19), Param);
 Ku=createPointTrans(J,L(17),Param);
 Kr=createPointTrans(J,-L(17),Param);
 % N=createPointLong(J,L(22),Param);
-%Transfor from local to global
+%Transformation from local to global
 Node(:,1)=local2cart(O1,DIP,PIP,MCP,Param);
 Node(:,2)=local2cart(O2,DIP,PIP,MCP,Param);
 Node(:,3)=local2cart(O3u,DIP,PIP,MCP,Param);
@@ -77,41 +77,12 @@ Tendons.t9=CreateBandConstr(Node(:,12),Node(:,16),bonepoints(:,2),Param,round(L(
 Tendons.t10=CreateBandConstr(Node(:,14),Node(:,17),PulleyIntr,Param,round(L(26)*pointsdens));
 Tendons.t11=CreateBandConstr(Node(:,11),Node(:,18),PulleyLu,Param,round(L(27)*pointsdens));
 %% Create intercrossing fibers
-RR=[0.3 0.3; 0.8 0.8];
-Lg=[size(Tendons.n1,2) size(Tendons.n1,2);size(Tendons.n3,2)  size(Tendons.n3,2)];
-LL=round(Lg.*RR);
-Points11=1:round(LL(1,1));
-Points22=Lg(2,2)+1-round(LL(2,2)):Lg(2,2);
-Nlines1=max(length(Points11),length(Points22));
-Points12=Lg(1,2)+1-round(LL(1,2)):Lg(1,2);
-Points21=1:round(LL(2,1));
-Nlines2=max(length(Points12),length(Points21));
-if max(Points11)>min(Points12)
-    Points1=min(Points11):max(Points12);
-else Points1=[Points11 Points12];
-end
-if max(Points21)>min(Points22)
-    Points2=min(Points21):max(Points22);
-else Points2=[Points21 Points22];
-end
-% Nodes=[Nodes;ILBU(:,Points1)';EMB(:,Points2)';ILBR(:,Points1)'];
-[Lline1 Rline1] = getGrid(Points11,Points22);
-Line1=[Lline1;Rline1];
-[Lline2 Rline2] = getGrid(Points12,Points21);
-Line2=[Lline2;Rline2];
-for i=1:size(Line1,2)
-    Tendons.(horzcat('gr1_',int2str(i)))=CreateBandConstr(Tendons.n1(:,Line1(1,i)),Tendons.n3(:,Line1(2,i)),PulleyPIPu,Param,40);
-end
-for i=1:size(Line2,2)
-    Tendons.(horzcat('gr2_',int2str(i)))=CreateBand(Tendons.n1(:,Line2(1,i)),Tendons.n3(:,Line2(2,i)),40);
-end
-for i=1:size(Line2,2)
-    Tendons.(horzcat('gr3_',int2str(i)))=CreateBand(Tendons.n2(:,Line2(1,i)),Tendons.n3(:,Line2(2,i)),40);
-end
-for i=1:size(Line1,2)
-    Tendons.(horzcat('gr4_',int2str(i)))=CreateBandConstr(Tendons.n2(:,Line1(1,i)),Tendons.n3(:,Line1(2,i)),PulleyPIPr,Param,40);
-end
-
+zone1=[0 0.3; 0.2 1.0]; %transform to[0.3 0.8]
+zone2=[0.7 1.0; 0 0.8];%transform to[0.3 0.8]
+Tendons.g1 = CreateGrid(Tendons.n1,Tendons.n3,zone1,PulleyPIPu,Param,40);
+Tendons.g2 = CreateGrid(Tendons.n1,Tendons.n3,zone2,NaN,Param,40);
+Tendons.g3 = CreateGrid(Tendons.n2,Tendons.n3,zone2,NaN,Param,40);
+Tendons.g4 = CreateGrid(Tendons.n2,Tendons.n3,zone1,PulleyPIPr,Param,40);
 %% Create membtanes
 Tendons.s1=makeTriang(Node(:,7),Node(:,6),Node(:,5),Param);
 Tendons.m2=makeQuad(Node(:,12),Node(:,13),Node(:,10),Node(:,9),Param);
