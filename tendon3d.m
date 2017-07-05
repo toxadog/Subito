@@ -20,6 +20,8 @@ Param.M=[M1 M2 M3 M4 PulleyM1 PulleyM3 PulleyM4];
 JAngles=[0*pi/180,-20*pi/180,-30*pi/180];
 Param.currentbonepoints=BonesConf(JAngles(1),JAngles(2),JAngles(3),Param);
 CreateWindow(Param.currentbonepoints);
-[Tendons Nodes]=initial(Param);
+[Tendons Nodes gLines]=initial(Param);
+[Points Neighbours]=convTendons(Tendons, Nodes, gLines);
 drawband(Tendons)
+
 
