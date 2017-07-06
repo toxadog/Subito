@@ -21,7 +21,7 @@ JAngles=[0*pi/180,-20*pi/180,-30*pi/180];
 Param.currentbonepoints=BonesConf(JAngles(1),JAngles(2),JAngles(3),Param);
 CreateWindow(Param.currentbonepoints);
 [Tendons Nodes gLines]=initial(Param);
-[Points Neighbours]=convTendons(Tendons, Nodes, gLines);
+[Points Neighbours Map]=convTendons(Tendons, Nodes, gLines);
 drawband(Tendons)
 
 
