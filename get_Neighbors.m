@@ -4,11 +4,11 @@ function N = get_Neighbors(i,NElements,Nodes,Tendons)
 nN=[find(NElements(:,1)==1,1, 'last');find(NElements(:,1)==2,1, 'last');find(NElements(:,1)==3,1, 'last');...
     find(NElements(:,1)==4,1, 'last');find(NElements(:,1)==5,1, 'last')];
 PrecPoint=sum(NElements(1:i-1,2));
-N=zeros(NElements(i,2),15);
 switch NElements(i,1)
     case 1
-        T=Nodes(:,i)';
+         N=zeros(NElements(i,2),15);
     case 2
+        N=zeros(NElements(i,2),15);
         P1=NaN;
         P2=NaN;
         P3=NaN;
@@ -21,6 +21,7 @@ switch NElements(i,1)
         end
         N(npoints-2,1:2)=[npoints-3+PrecPoint P2];
     case 3
+        N=zeros(NElements(i,2),15);
         P1=NaN;
         P2=NaN;
         band=Tendons.(horzcat('t',int2str(i-nN(2))));
@@ -31,6 +32,7 @@ switch NElements(i,1)
         end
         N(npoints-2,1:2)=[npoints-3+PrecPoint P2];
     case 4
+        N=zeros(NElements(i,2),15);
         grid=Tendons.(horzcat('g',int2str(i-nN(3))));
         P1=NaN;
         P2=NaN;
@@ -44,79 +46,14 @@ switch NElements(i,1)
         end
     case 5
         grid=Tendons.(horzcat('s',int2str(i-nN(4)))); 
-        npoints=size(grid,2);
+        dim1=size(grid,3);
+        dim2=size(grid,2);
         P1=NaN;
         P2=NaN;
         P3=NaN;
-        T=npoints-1;
-        for j1=1:size(grid,3) 
-            switch j1
-                case 1
-                    num=1;
-                    pos=num+PrecPoint;
-                    N(num,1:3)=[P1 pos+1,pos+T];
-                    for j=3:npoints-2
-                        num=j-1;
-                        pos=num+PrecPoint;
-                        N(num,1:3)=[pos-1 pos+1,pos+T];
-                    end
-                    num=npoints-2;
-                    pos=num+PrecPoint;
-                    N(num,1:3)=[pos-1,P3, pos+T];
-                case 2
-                    num=1+T-1;
-                    pos=num+PrecPoint;
-                    N(num,1:3)=[ pos+1,P1,pos+T];
-                    for j=2:npoints-2
-                        num=j+T-1;
-                        pos=num+PrecPoint;
-                        N(num,1:4)=[pos-1 pos+1,pos-T,pos+T];
-                    end
-                    num=npoints-1+T-1;
-                    pos=num+PrecPoint;
-                    N(num,1:4)=[pos-1,P3,pos-T, pos+T];
-                    
-                case  size(grid,3)-1
-                    num=1+T*(j1-1)-1;
-                    pos=num+PrecPoint;
-                    N(num,1:3)=[ pos+1,pos-T,P2];
-                    for j=2:npoints-2
-                        num=j+T*(j1-1)-1;
-                        pos=num+PrecPoint;
-                        N(num,1:4)=[pos-1 pos+1,pos-T,pos+T];
-                    end
-                    num=npoints-1+T*(j1-1)-1;
-                    pos=num+PrecPoint;
-                    N(num,1:4)=[pos-1,P3,pos-T, pos+T];
-                    
-                case size(grid,3)
-                    num=1+T*(j1-1)-1;
-                    pos=num+PrecPoint;
-                    N(num,1:3)=[P2 pos+1,pos-T];
-                    for j=3:npoints-2
-                        num=j-1+T*(j1-1)-1;
-                        pos=num+PrecPoint;
-                        N(num,1:3)=[pos-1 pos+1,pos-T];
-                    end
-                    num=npoints-2+T*(j1-1)-1;
-                    pos=num+PrecPoint;
-                    N(num,1:3)=[pos-1,P3, pos-T];
-                    
-                otherwise
-                    num=1+T*(j1-1)-1;
-                    pos=num+PrecPoint;
-                    N(num,1:3)=[ pos+1,pos-T,pos+T];
-                    for j=2:npoints-2
-                        num=j+T*(j1-1)-1;
-                        pos=num+PrecPoint;
-                        N(num,1:4)=[pos-1 pos+1,pos-T,pos+T];
-                    end
-                    num=npoints-1+T*(j1-1)-1;
-                    pos=num+PrecPoint;
-                    N(num,1:4)=[pos-1,P3,pos-T, pos+T];  
-            end
-        end
-        case 6
+        N=neighbTriangle(dim1,dim2,P1,P2,P3,PrecPoint);
+    case 6
+        N=zeros(NElements(i,2),15);
         grid=Tendons.(horzcat('m',int2str(i-nN(4)))); 
         npoints=size(grid,2);
         P1=NaN;
@@ -190,6 +127,74 @@ switch NElements(i,1)
                     N(num,1:3)=[pos-1,pos-T, pos+T];  
             end
         end      
+end
+end
+function N=neighbTriangle(dim1,dim2,P1,P2,P3,PrecPoint)
+N=zeros(dim1*(dim2-1)-2,15);
+T=dim2-1;
+for j1=1:dim1
+    switch j1
+        case 1
+            num=1;
+            pos=num+PrecPoint;
+            N(num,1:3)=[P1 pos+1,pos+T];
+            for j=3:dim2-2
+                num=j-1;
+                pos=num+PrecPoint;
+                N(num,1:3)=[pos-1 pos+1,pos+T];
+            end
+            num=dim2-2;
+            pos=num+PrecPoint;
+            N(num,1:3)=[pos-1,P3, pos+T];
+         case 2
+             num=1+T-1;
+             pos=num+PrecPoint;
+             N(num,1:3)=[ pos+1,P1,pos+T];
+             for j=2:dim2-2
+                 num=j+T-1;
+                 pos=num+PrecPoint;
+                 N(num,1:4)=[pos-1 pos+1,pos-T,pos+T];
+             end
+             num=dim2-1+T-1;
+             pos=num+PrecPoint;
+             N(num,1:4)=[pos-1,P3,pos-T, pos+T];
+         case  dim1-1
+             num=1+T*(j1-1)-1;
+             pos=num+PrecPoint;
+             N(num,1:3)=[ pos+1,pos-T,P2];
+             for j=2:dim2-2
+                 num=j+T*(j1-1)-1;
+                 pos=num+PrecPoint;
+                 N(num,1:4)=[pos-1 pos+1,pos-T,pos+T-1];
+             end
+             num=dim2-1+T*(j1-1)-1;
+             pos=num+PrecPoint;
+             N(num,1:4)=[pos-1,P3,pos-T, pos+T-1];       
+         case dim1
+             num=1+T*(j1-1)-1;
+             pos=num+PrecPoint;
+             N(num,1:3)=[P2 pos+1,pos-T+1];
+             for j=3:dim2-2
+                 num=j-1+T*(j1-1)-1;
+                 pos=num+PrecPoint;
+                 N(num,1:3)=[pos-1 pos+1,pos-T+1];
+             end
+             num=dim2-2+T*(j1-1)-1;
+             pos=num+PrecPoint;
+             N(num,1:3)=[pos-1,P3, pos-T+1];       
+        otherwise
+            num=1+T*(j1-1)-1;
+            pos=num+PrecPoint;
+            N(num,1:3)=[ pos+1,pos-T,pos+T];
+            for j=2:dim2-2
+                num=j+T*(j1-1)-1;
+                pos=num+PrecPoint;
+                N(num,1:4)=[pos-1 pos+1,pos-T,pos+T];
+            end
+            num=dim2-1+T*(j1-1)-1;
+            pos=num+PrecPoint;
+            N(num,1:4)=[pos-1,P3,pos-T, pos+T];  
+    end
 end
 end
 

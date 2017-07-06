@@ -3,8 +3,6 @@ function T = convertElement(i,NElements,Nodes,Tendons)
 %   Detailed explanation goes here
 nN=[find(NElements(:,1)==1,1, 'last');find(NElements(:,1)==2,1, 'last');find(NElements(:,1)==3,1, 'last');...
     find(NElements(:,1)==4,1, 'last');find(NElements(:,1)==5,1, 'last')];
-
-
 T=zeros(NElements(i,2),3);
 switch NElements(i,1)
     case 1
