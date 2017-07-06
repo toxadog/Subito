@@ -85,8 +85,8 @@ zone2=[0.7 1.0; 0 0.8];%transform to[0.3 0.8]
 [Tendons.g4, gLines.g4] = CreateGrid(Tendons.n2,Tendons.n3,zone1,PulleyPIPr,Param,40);
 %% Create membtanes
 Tendons.s1=makeTriang(Nodes(:,7),Nodes(:,6),Nodes(:,5),Param);
-Tendons.m2=makeQuad(Nodes(:,12),Nodes(:,13),Nodes(:,10),Nodes(:,9),Param);
-Tendons.m3=makeQuad(Nodes(:,12),Nodes(:,14),Nodes(:,11),Nodes(:,9),Param);
+Tendons.m1=makeQuad(Nodes(:,12),Nodes(:,13),Nodes(:,10),Nodes(:,9),Param);
+Tendons.m2=makeQuad(Nodes(:,12),Nodes(:,14),Nodes(:,11),Nodes(:,9),Param);
 %% Pushout Tendons
 Tendons=PushoutTendon(Tendons,Param);
 

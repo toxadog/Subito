@@ -49,7 +49,7 @@ switch NElements(i,1)
             end
         end
         case 6
-        grid=Tendons.(horzcat('m',int2str(i-nN(4)))); 
+        grid=Tendons.(horzcat('m',int2str(i-nN(5)))); 
         npoints=size(grid,2);
         for j1=1:size(grid,3) 
             band=grid(:,:,j1);
