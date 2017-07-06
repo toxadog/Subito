@@ -26,7 +26,9 @@ counter=1;
 TendonsConv=zeros(NPoints,3);
 Neighbours=zeros(NPoints,15);
 for i=1:NEl
-    [T,N]=convertElement(i,NElements,Nodes,Tendons);
+    T=convertElement(i,NElements,Nodes,Tendons);
+    N=get_Neighbors(i,NElements,Nodes,Tendons);
+
     TendonsConv(counter:counter+NElements(i,2)-1,:)=T;
     Neighbours(counter:counter+NElements(i,2)-1,:)=N;
     counter=counter+NElements(i,2);

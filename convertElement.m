@@ -1,4 +1,4 @@
-function [T,N] = convertElement(i,NElements,Nodes,Tendons)
+function T = convertElement(i,NElements,Nodes,Tendons)
 %UNTITLED3 Summary of this function goes here
 %   Detailed explanation goes here
 nN=[find(NElements(:,1)==1,1, 'last');find(NElements(:,1)==2,1, 'last');find(NElements(:,1)==3,1, 'last');...
@@ -6,7 +6,6 @@ nN=[find(NElements(:,1)==1,1, 'last');find(NElements(:,1)==2,1, 'last');find(NEl
 
 
 T=zeros(NElements(i,2),3);
-N=zeros(NElements(i,2),15);
 switch NElements(i,1)
     case 1
         T=Nodes(:,i)';
