@@ -5,7 +5,7 @@ function  Points = constr(Points,N,Param)
 dl=1/Param.pointsdens;
 NNeigmax=size(N,2);
 Points_new=zeros(size(Points));
-for counter=1:25
+for counter=1:50
 for i=1:d1
         pos0=find(N(i,:)==0);
         if isempty(pos0)
@@ -34,7 +34,7 @@ for i=1:d1
 %             if Pen<0
 %                 Pnew=Pnew-depl;
 %             end
-%             Pnew = pushout(Pnew',Param);
+            Pnew = pushout(Pnew',Param);
             Points_new(i,:)=Pnew';
                        
         end

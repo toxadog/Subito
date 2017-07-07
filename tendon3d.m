@@ -22,6 +22,18 @@ Param.currentbonepoints=BonesConf(JAngles(1),JAngles(2),JAngles(3),Param);
 CreateWindow(Param.currentbonepoints);
 [Tendons Nodes gLines]=initial(Param);
 [Points Neighbours Map]=convTendons(Tendons, Nodes, gLines);
-drawband(Tendons)
+drawband(Tendons);
+MuscleForces = [0.250*9.8;0.500*9.8;0.250*9.8;0.500*9.8];
+Forces=zeros(size(Points));
+Forces(15,:)=MuscleForces(1)*(M1-Points(16,:)')/modulus(M1-Points(16,:)');
+Forces(16,:)=MuscleForces(2)*(M2-Points(16,:)')/modulus(M2-Points(16,:)');
+Forces(17,:)=MuscleForces(3)*(M3-Points(17,:)')/modulus(M3-Points(17,:)');
+Forces(18,:)=MuscleForces(4)*(M4-Points(18,:)')/modulus(M4-Points(18,:)');
+Points = PointMove(Points,Neighbours,Forces,Param);
+Tendons2 = iconvTendons(Points,Map);
+figure;
+CreateWindow(Param.currentbonepoints);
+drawband(Tendons2)
+
 
 

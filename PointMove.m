@@ -1,9 +1,9 @@
-function Points = PointMove(Points,Neighbours,Force,Param, PointsNumber)
+function Points = PointMove(Points,Neighbours,Force,Param)
 %UNTITLED8 Summary of this function goes here
 %   Detailed explanation goes here
 NPoints=size(Points,1);
 PointsNew=Points;
-MaxIter = 200;
+MaxIter = 20;
 prec=1e-8;
 counter=1;
 % alpha = 0.0005;
@@ -15,4 +15,5 @@ while (counter<=MaxIter)
     PointsNew= constr(Points2,Neighbours,Param);
     Points(5:NPoints,:)=PointsNew(5:NPoints,:);
     counter=counter+1;
+    display(counter);
 end
