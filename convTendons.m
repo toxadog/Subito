@@ -30,7 +30,7 @@ for i=1:NEl
     TendonsConv(counter:counter+NElements(i,2)-1,:)=T;
     switch NElements(i,1)
         case 2
-            Map.(horzcat('n',int2str(i-nN(1))))=NumBand(ConnectN(i-nN(1),2),ConnectT(i-nN(1),3),size(Tendons.(horzcat('n',int2str(i-nN(1)))),2),counter);
+            Map.(horzcat('n',int2str(i-nN(1))))=NumBand(ConnectN(i-nN(1),2),ConnectN(i-nN(1),3),size(Tendons.(horzcat('n',int2str(i-nN(1)))),2),counter);
         case 3
             Map.(horzcat('t',int2str(i-nN(2))))=NumBand(ConnectT(i-nN(2),2),ConnectT(i-nN(2),3),size(Tendons.(horzcat('t',int2str(i-nN(2)))),2),counter);
         case 4
@@ -52,7 +52,7 @@ for i=1:NEl
     end
     counter=counter+NElements(i,2);
 end
- Neighbours=get_Neighbors(NElements,gLines,Tendons);
+Neighbours=get_Neighbors(NElements,gLines,Tendons);
 
 end
 

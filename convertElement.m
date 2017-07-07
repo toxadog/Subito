@@ -30,45 +30,63 @@ switch NElements(i,1)
         end
     case 5
         grid=Tendons.(horzcat('s',int2str(i-nN(4)))); 
-        npoints=size(grid,2);
-        for j1=1:size(grid,3) 
-            band=grid(:,:,j1);
-            if j1==1
-                for j2=2:npoints-1;
-                    T(j2-1,:)=band(:,j2)';
-                end
-            else if (j1~=1)&&(j1~=size(grid,3))
-                for j2=2:npoints;
-                    T(j2-1+(npoints-1)*(j1-1)-1,:)=band(:,j2)';
-                end
-                else
-                    for j2=2:npoints-1;
-                        T(j2-1+(npoints-1)*(j1-1)-1,:)=band(:,j2)';
-                    end
-                end
-            end
-        end
+        T=convertTriang(grid);
         case 6
         grid=Tendons.(horzcat('m',int2str(i-nN(5)))); 
-        npoints=size(grid,2);
-        for j1=1:size(grid,3) 
-            band=grid(:,:,j1);
-            if j1==1
-                for j2=2:npoints-1;
-                    T(j2-1,:)=band(:,j2)';
-                end
-            else if (j1~=1)&&(j1~=size(grid,3))
-                for j2=1:npoints;
-                    T(j2-1+(npoints)*(j1-1)-2,:)=band(:,j2)';
-                end
-                else
-                    for j2=2:npoints-1;
-                        T(j2-1+(npoints)*(j1-1)-2,:)=band(:,j2)';
-                    end
-                end
+        T=convertQuad(grid);
+end
+end
+function T=convertTriang(grid)
+dim1=size(grid,3);
+dim2=size(grid,2);
+T=zeros(dim1*(dim2-1)-2,3);
+
+for j1=1:dim1
+    band=grid(:,:,j1);
+    switch j1
+        case 1
+            for j2=2:dim2-1;
+                num = j2-1;
+                T(num,:)=band(:,j2)';
             end
-        end
+        case dim1
+            for j2=2:dim2-1;
+                num = (dim1-1)*(dim2-1)-1+j2-1;
+                T(num,:)=band(:,j2)';
+            end
+        otherwise
+            for j2=1:dim2-1;
+                num = (j1-1)*(dim2-1)-1+j2;
+                T(num,:)=band(:,j2)';
+            end
+    end 
 end
 end
 
 
+function T=convertQuad(grid)
+dim1=size(grid,3);
+dim2=size(grid,2);
+T=zeros(dim1*dim2-4,3);
+
+for j1=1:dim1
+    band=grid(:,:,j1);
+    switch j1
+        case 1
+            for j2=2:dim2-1;
+                num = j2-1;
+                T(num,:)=band(:,j2)';
+            end
+        case dim1
+            for j2=2:dim2-1;
+                num = (dim1-1)*dim2-2+j2-1;
+                T(num,:)=band(:,j2)';
+            end
+        otherwise
+            for j2=1:dim2;
+                num = (j1-1)*dim2-2+j2;
+                T(num,:)=band(:,j2)';
+            end
+    end 
+end
+end
