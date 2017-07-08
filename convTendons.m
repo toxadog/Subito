@@ -1,22 +1,22 @@
-function [TendonsConv, Neighbours, Map] = convTendons(Tendons, Nodes, gLines)
+function [TendonsConv, Neighbours, Map,NElements] = convTendons(Tendons, Nodes, gLines)
 %UNTITLED7 Summary of this function goes here
 %   Detailed explanation goes here
 load('Connect.mat');
 names=fieldnames(Tendons);
-NElements=repmat([1,1],size(Nodes,2),1);
+NElements=repmat([1,1,0,0],size(Nodes,2),1);
 for i=1:size(names,1);
     ElName=char(names(i,:));
     switch ElName(1)
         case 'n'
-            NElements(size(Nodes,2)+i,:)=[2 size(Tendons.(ElName),2)-2];
+            NElements(size(Nodes,2)+i,1:2)=[2 size(Tendons.(ElName),2)-2];
         case 't'
-            NElements(size(Nodes,2)+i,:)=[3 size(Tendons.(ElName),2)-2];
+            NElements(size(Nodes,2)+i,1:2)=[3 size(Tendons.(ElName),2)-2];
         case 'g'
-            NElements(size(Nodes,2)+i,:)=[4 size(Tendons.(ElName),2)*size(Tendons.(ElName),3)-2*size(Tendons.(ElName),3)];
+            NElements(size(Nodes,2)+i,1:4)=[4 size(Tendons.(ElName),2)*size(Tendons.(ElName),3)-2*size(Tendons.(ElName),3),size(Tendons.(ElName),2),size(Tendons.(ElName),3)];
         case 's'
-            NElements(size(Nodes,2)+i,:)=[5 size(Tendons.(ElName),2)*size(Tendons.(ElName),3)-2-size(Tendons.(ElName),3)];    
+            NElements(size(Nodes,2)+i,1:4)=[5 size(Tendons.(ElName),2)*size(Tendons.(ElName),3)-2-size(Tendons.(ElName),3),size(Tendons.(ElName),2),size(Tendons.(ElName),3)];    
         case 'm'
-            NElements(size(Nodes,2)+i,:)=[6 size(Tendons.(ElName),2)*size(Tendons.(ElName),3)-4];    
+            NElements(size(Nodes,2)+i,1:4)=[6 size(Tendons.(ElName),2)*size(Tendons.(ElName),3)-4,size(Tendons.(ElName),2),size(Tendons.(ElName),3)];    
     end
 end 
 NPoints=sum(NElements(:,2));
