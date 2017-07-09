@@ -1,10 +1,10 @@
-function  Points = constr(Points,N,Param)
+function  Points = constr(Points,N,Param,L)
 %UNTITLED6 Summary of this function goes here
 %   Detailed explanation goes here
 [d1,d2]=size(Points);
 dl=1/Param.pointsdens;
 NNeigmax=size(N,2);
-Points_new=zeros(size(Points));
+Points_new=Points;
 for counter=1:50
 for i=1:d1
         pos0=find(N(i,:)==0);
@@ -22,7 +22,7 @@ for i=1:d1
             D1=Neighbours-ones(NNeig,3)*diag(P);
             D2=sqrt(sum(D1.^2,2));
 %             D2=sqrt(ones(1,NNeig)*(D1*D1'))';
-            D3=(D2-dl)./D2;
+            D3=(D2-L(i,:)')./D2;
             Pnew=P;
             for iN=1:NNeig
                 if D3(iN)>0

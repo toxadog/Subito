@@ -1,4 +1,4 @@
-function [Tendons Nodes gLines]=initial(Param)
+function [Tendons Nodes gLines Length]=initial(Param)
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here 
 bonepoints = Param.currentbonepoints;
@@ -64,33 +64,63 @@ Nodes(:,16)=Nodes(:,12)+L(22)*(M(:,2)-Nodes(:,12))/modulus(M(:,2)-Nodes(:,12));
 Nodes(:,17)=Nodes(:,14)+L(26)*(M(:,3)-Nodes(:,14))/modulus(M(:,3)-Nodes(:,14));
 Nodes(:,18)=Nodes(:,11)+L(27)*(M(:,4)-Nodes(:,11))/modulus(M(:,4)-Nodes(:,11));
 
+%% Define tendon interpoint distance
+%the L array will be restructured 
+Length.n1=L(6);
+Length.n2=L(6);
+Length.n3=L(13);
+Length.t1=L(1);
+Length.t2=L(10);
+Length.t3=L(23);
+Length.t4=L(24);
+Length.t5=L(25);
+Length.t6=L(22);
+Length.t7=L(26);
+Length.t8=L(27);
+
 %% Create pricipal tendons
-Tendons.n1=CreateBandConstr(Nodes(:,6),Nodes(:,10),PulleyPIPu,Param,round(L(6)*pointsdens));
-Tendons.n2=CreateBandConstr(Nodes(:,7),Nodes(:,11),PulleyPIPr,Param,round(L(6)*pointsdens));
-Tendons.n3=CreateBand(Nodes(:,8),Nodes(:,9),round(L(13)*pointsdens));
-Tendons.t1=CreateBand(Nodes(:,1),Nodes(:,5),round(L(1)*pointsdens));
-Tendons.t2=CreateBand(Nodes(:,2),Nodes(:,8),round(L(10)*pointsdens));
-Tendons.t3=CreateBand(Nodes(:,6),Nodes(:,3),round(L(23)*pointsdens));
-Tendons.t4=CreateBand(Nodes(:,7),Nodes(:,4),round(L(24)*pointsdens));
-Tendons.t5=CreateBandConstr(Nodes(:,13),Nodes(:,15),PulleyIntu,Param,round(L(25)*pointsdens));
-Tendons.t6=CreateBandConstr(Nodes(:,12),Nodes(:,16),bonepoints(:,2),Param,round(L(22)*pointsdens));
-Tendons.t7=CreateBandConstr(Nodes(:,14),Nodes(:,17),PulleyIntr,Param,round(L(26)*pointsdens));
-Tendons.t8=CreateBandConstr(Nodes(:,11),Nodes(:,18),PulleyLu,Param,round(L(27)*pointsdens));
+Tendons.n1=CreateBandConstr(Nodes(:,6),Nodes(:,10),PulleyPIPu,Param,round(L(6)*pointsdens)+1);
+Tendons.n2=CreateBandConstr(Nodes(:,7),Nodes(:,11),PulleyPIPr,Param,round(L(6)*pointsdens)+1);
+Tendons.n3=CreateBand(Nodes(:,8),Nodes(:,9),round(L(13)*pointsdens)+1);
+Tendons.t1=CreateBand(Nodes(:,1),Nodes(:,5),round(L(1)*pointsdens)+1);
+Tendons.t2=CreateBand(Nodes(:,2),Nodes(:,8),round(L(10)*pointsdens)+1);
+Tendons.t3=CreateBand(Nodes(:,6),Nodes(:,3),round(L(23)*pointsdens)+1);
+Tendons.t4=CreateBand(Nodes(:,7),Nodes(:,4),round(L(24)*pointsdens)+1);
+Tendons.t5=CreateBandConstr(Nodes(:,13),Nodes(:,15),PulleyIntu,Param,round(L(25)*pointsdens)+1);
+Tendons.t6=CreateBandConstr(Nodes(:,12),Nodes(:,16),bonepoints(:,2),Param,round(L(22)*pointsdens)+1);
+Tendons.t7=CreateBandConstr(Nodes(:,14),Nodes(:,17),PulleyIntr,Param,round(L(26)*pointsdens)+1);
+Tendons.t8=CreateBandConstr(Nodes(:,11),Nodes(:,18),PulleyLu,Param,round(L(27)*pointsdens)+1);
+%% Define grid interpoint distance
+Length.g1=[L(15) L(6) L(13)];
+Length.g2=[L(15) L(6) L(13)];
+Length.g3=[L(15) L(7) L(13)];
+Length.g4=[L(15) L(7) L(13)];
 %% Create intercrossing fibers
+NPg=genNPgrid(Length.g1,pointsdens);
 zone1=[0 0.3; 0.2 1.0]; %transform to[0.3 0.8]
 zone2=[0.7 1.0; 0 0.8];%transform to[0.3 0.8]
-[Tendons.g1, gLines.g1] = CreateGrid(Tendons.n1,Tendons.n3,zone1,PulleyPIPu,Param,40);
-[Tendons.g2, gLines.g2] = CreateGrid(Tendons.n1,Tendons.n3,zone2,NaN,Param,40);
-[Tendons.g3, gLines.g3] = CreateGrid(Tendons.n2,Tendons.n3,zone2,NaN,Param,40);
-[Tendons.g4, gLines.g4] = CreateGrid(Tendons.n2,Tendons.n3,zone1,PulleyPIPr,Param,40);
+[Tendons.g1, gLines.g1] = CreateGrid(Tendons.n1,Tendons.n3,zone1,PulleyPIPu,Param,NPg);
+[Tendons.g2, gLines.g2] = CreateGrid(Tendons.n1,Tendons.n3,zone2,NaN,Param,NPg);
+[Tendons.g3, gLines.g3] = CreateGrid(Tendons.n2,Tendons.n3,zone2,NaN,Param,NPg);
+[Tendons.g4, gLines.g4] = CreateGrid(Tendons.n2,Tendons.n3,zone1,PulleyPIPr,Param,NPg);
+%% Define membrane interpoint distance
+Length.s1=[L(14)  L(3) L(2)];
+Length.m1=[L(15) L(17)  L(19) L(20)];
+Length.m2=[L(15) L(17)  L(19) L(21)];
 %% Create membtanes
-Tendons.s1=makeTriang(Nodes(:,7),Nodes(:,6),Nodes(:,5),Param);
-Tendons.m1=makeQuad(Nodes(:,12),Nodes(:,13),Nodes(:,10),Nodes(:,9),Param);
-Tendons.m2=makeQuad(Nodes(:,12),Nodes(:,14),Nodes(:,11),Nodes(:,9),Param);
+NPsh=round(Length.s1(1)*pointsdens)+1;
+NPsv=round(max(Length.s1(2),Length.s1(3))*pointsdens)+1;
+NPm1h=round(max(Length.m1(1),Length.m1(2))*pointsdens)+1;
+NPm1v=round(max(Length.m1(3),Length.m1(4))*pointsdens)+1;
+NPm2h=round(max(Length.m2(1),Length.m2(2))*pointsdens)+1;
+NPm2v=round(max(Length.m2(3),Length.m2(4))*pointsdens)+1;
+Tendons.s1=makeTriang(Nodes(:,7),Nodes(:,6),Nodes(:,5),NPsh,NPsv);
+Tendons.m1=makeQuad(Nodes(:,12),Nodes(:,13),Nodes(:,10),Nodes(:,9),NPm1h,NPm1v);
+Tendons.m2=makeQuad(Nodes(:,12),Nodes(:,14),Nodes(:,11),Nodes(:,9),NPm2h,NPm2v);
 %% Pushout Tendons
 Tendons=PushoutTendon(Tendons,Param);
-
-
-
 end
-
+function NP=genNPgrid(Length,pointsdens)
+Diag = sqrt(Length(3)^2+Length(1)^2);
+NP = round(Diag*pointsdens)+1;
+end

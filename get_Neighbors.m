@@ -5,7 +5,7 @@ load('Connect.mat');
 nN=[find(NElements(:,1)==1,1, 'last');find(NElements(:,1)==2,1, 'last');find(NElements(:,1)==3,1, 'last');...
     find(NElements(:,1)==4,1, 'last');find(NElements(:,1)==5,1, 'last')];
 NEl=size(NElements,1);
-N=zeros(NEl,15);
+N=zeros(sum(NElements(:,2)),15);
 counter=1;
 for i=1:NEl
     PrecPoint=sum(NElements(1:i-1,2));

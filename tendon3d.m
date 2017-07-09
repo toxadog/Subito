@@ -20,9 +20,10 @@ Param.M=[M1 M2 M3 M4 PulleyM1 PulleyM3 PulleyM4];
 JAngles=[0*pi/180,0*pi/180,0*pi/180];
 Param.currentbonepoints=BonesConf(JAngles(1),JAngles(2),JAngles(3),Param);
 CreateWindow(Param.currentbonepoints);
-[Tendons Nodes gLines]=initial(Param);
+[Tendons Nodes gLines Length]=initial(Param);
 [Points, Neighbours, Map, NElements]=convTendons(Tendons, Nodes, gLines);
-[Points,Neighbours]=mergeQuad(Points,Neighbours,NElements,35,36);
+L = createLength(NElements,gLines,Tendons,Length);
+% [Points,Neighbours]=mergeQuad(Points,Neighbours,NElements,35,36);
 % drawband(Tendons);
 % MuscleForces = [0.250*9.8;0.500*9.8;0.250*9.8;0.500*9.8];
 % Forces=zeros(size(Points));
@@ -35,6 +36,6 @@ CreateWindow(Param.currentbonepoints);
 % figure;
 % CreateWindow(Param.currentbonepoints);
 % drawband(Tendons2)
-
+% 
 
 
