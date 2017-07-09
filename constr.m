@@ -22,7 +22,7 @@ for i=1:d1
             D1=Neighbours-ones(NNeig,3)*diag(P);
             D2=sqrt(sum(D1.^2,2));
 %             D2=sqrt(ones(1,NNeig)*(D1*D1'))';
-            D3=(D2-L(i,:)')./D2;
+            D3=(D2-L(i,1:NNeig)')./D2;
             Pnew=P;
             for iN=1:NNeig
                 if D3(iN)>0
