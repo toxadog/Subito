@@ -23,8 +23,15 @@ NPoints=sum(NElements(:,2));
 NEl=size(NElements,1);
 counter=1;
 TendonsConv=zeros(NPoints,3);
-nN=[find(NElements(:,1)==1,1, 'last');find(NElements(:,1)==2,1, 'last');find(NElements(:,1)==3,1, 'last');...
-    find(NElements(:,1)==4,1, 'last');find(NElements(:,1)==5,1, 'last')];
+nN=zeros(5,1);
+for i=1:5
+    N=find(NElements(:,1)==i,1, 'last');
+    if ~isempty(N)
+        nN(i)=N;
+    else
+        nN(i)=nN(i-1);
+    end
+end
 for i=1:NEl
     T=convertElement(i,NElements,Nodes,Tendons);
     TendonsConv(counter:counter+NElements(i,2)-1,:)=T;

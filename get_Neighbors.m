@@ -2,8 +2,15 @@ function N = get_Neighbors(NElements,gLines,Tendons)
 %UNTITLED3 Summary of this function goes here
 %   Detailed explanation goes here
 load('Connect.mat');
-nN=[find(NElements(:,1)==1,1, 'last');find(NElements(:,1)==2,1, 'last');find(NElements(:,1)==3,1, 'last');...
-    find(NElements(:,1)==4,1, 'last');find(NElements(:,1)==5,1, 'last')];
+nN=zeros(5,1);
+for i=1:5
+    nelem=find(NElements(:,1)==i,1, 'last');
+    if ~isempty(nelem)
+        nN(i)=nelem;
+    else
+        nN(i)=nN(i-1);
+    end
+end
 NEl=size(NElements,1);
 N=zeros(sum(NElements(:,2)),15);
 counter=1;

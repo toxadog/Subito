@@ -1,4 +1,4 @@
-function [Points,Neighbours,Length,NElements] = mergeQuad(Points,Neighbours,Length,NElements,Q1,Q2)
+function [Points,Neighbours,Length,NElements,pos1,pos2] = mergeQuad(Points,Neighbours,Length,NElements,Q1,Q2)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 ElType=6;
@@ -19,20 +19,20 @@ nN=[find(NElements(:,1)==1,1, 'last');find(NElements(:,1)==2,1, 'last');find(NEl
 find(NElements(:,1)==4,1, 'last');find(NElements(:,1)==5,1, 'last')];
 Node1=(ConnectM(Q1-nN(ElType-1),2));
 Node2=(ConnectM(Q1-nN(ElType-1),5));
-Neighbours=deletelink(Neighbours,Node1,pos1(1));
-Neighbours=deletelink(Neighbours,Node2,pos1(dim2-2));
+[Length,Neighbours]=deletelink(Length,Neighbours,Node1,pos1(1));
+[Length,Neighbours]=deletelink(Length,Neighbours,Node2,pos1(dim2-2));
 Neighbours(pos1,:)=zeros;
-Length=deletelink(Length,Node1,pos1(1));
-Length=deletelink(Length,Node2,pos1(dim2-2));
 Length(pos1,:)=zeros;
 Points(pos1,:)=NaN;
 NElements(Q2,2:4)=[(dim1*2-1)*dim2-6 dim2 dim1*2-1];
 NElements(Q1:size(NElements,1)-1,2:4)=NElements(Q1+1:size(NElements,1),2:4);
 NElements=NElements(1:size(NElements,1)-1,:);
 end
-function Neighbours=deletelink(Neighbours,Node,el)
+function [Length,Neighbours]=deletelink(Length,Neighbours,Node,el)
 pos1Node=find(Neighbours(Node,:)==el);
 pos2Node=find(Neighbours(Node,:)==0,1,'first');
 Neighbours(Node,pos1Node:pos2Node-2)=Neighbours(Node,pos1Node+1:pos2Node-1);
 Neighbours(Node,pos2Node-1)=0;
+Length(Node,pos1Node:pos2Node-2)=Length(Node,pos1Node+1:pos2Node-1);
+Length(Node,pos2Node-1)=0;
 end

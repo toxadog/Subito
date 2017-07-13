@@ -96,6 +96,7 @@ Length.g2=[L(15) L(6) L(13)];
 Length.g3=[L(15) L(7) L(13)];
 Length.g4=[L(15) L(7) L(13)];
 %% Create intercrossing fibers
+gLines=[];
 NPg=genNPgrid(Length.g1,pointsdens);
 zone1=[0 0.3; 0.2 1.0]; %transform to[0.3 0.8]
 zone2=[0.7 1.0; 0 0.8];%transform to[0.3 0.8]

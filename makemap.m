@@ -1,35 +1,61 @@
-function ColorStruct = makemap(Tendons)
-%UNTITLED12 Summary of this function goes here
+function ColorStruct = makemap(F,Map)
+%UNTITLED7 Summary of this function goes here
 %   Detailed explanation goes here
-% global haxes
-% axes(haxes);
-T=[];
-names=fieldnames(Tendons);
-for i=1:size(names,1)
-    band=Tendons.(char(names(i)));
-    for  j=2:size(band,2)
-        T=[T band(4,j)];
-    end
-end
-Tmax=max(T);
-Tmin=min(T);
+Tmax = max(F(~isnan(F)));
+Tmin = min(F(~isnan(F)));
+ColorStruct.Tmax=Tmax;
+ColorStruct.Tmin=Tmin;
 Colors=jet(256);
-% Colors=pink(256);
-for i=1:size(names,1)
-    band=Tendons.(char(names(i)));
-    col=zeros(3,size(band,2));
-    for  j=2:size(band,2)
-        if isnan((band(4,j)-Tmin)/(Tmin-Tmax));
-            col(:,j)=[0;0;0];
+NNeigmax=size(F,2);
+names=fieldnames(Map);
+for i=1:size(names,1);
+    bname=char(names(i));
+    if (bname(1)=='t')||(bname(1)=='n') 
+        for j=1:size(Map.(bname),2)
+%             pos0=find(isnan(F(Map.(char(names(i)))(j),:)),1);
+%             if isempty(pos0)
+%                 NNeig=NNeigmax;
+%             else
+%                 NNeig=pos0(1)-1;
+%             end
+                ColorStruct.(bname)(:,j)=getcolor(mean(F(Map.(char(names(i)))(j),1)),Colors,Tmax,Tmin);
+        end
+    else if (bname(1)=='s')||(bname(1)=='m')
+            for j=1:size(Map.(char(names(i))),3);
+                for k=1:size(Map.(char(names(i))),2);
+                    pos0=find(isnan(F(Map.(char(names(i)))(1,k,j),:)),1);
+                    if isempty(pos0)
+                        NNeig=NNeigmax;
+                    else
+                        NNeig=pos0(1)-1;
+                    end
+                    ColorStruct.(char(names(i)))(j,k)=(mean(F(Map.(bname)(1,k,j),1:NNeig))-Tmin)/(Tmax-Tmin);
+                end
+            end
         else
-            col(:,j)=Colors(1+round(249*(band(4,j)-Tmin)/(Tmax-Tmin)),:)';
+            for j=1:size(Map.(char(names(i))),3);
+                for k=1:size(Map.(char(names(i))),2);
+                    pos0=find(isnan(F(Map.(char(names(i)))(1,k,j),:)),1);
+                    if isempty(pos0)
+                        NNeig=NNeigmax;
+                    else
+                        NNeig=pos0(1)-1;
+                    end
+                    col=getcolor(mean(F(Map.(char(names(i)))(1,k,j),1:NNeig)),Colors,Tmax,Tmin);
+                    ColorStruct.(char(names(i)))(1,k,j)=col(1);
+                    ColorStruct.(char(names(i)))(2,k,j)=col(2);
+                    ColorStruct.(char(names(i)))(3,k,j)=col(3);
+                end
+            end
         end
     end
-    ColorStruct.(char(names(i)))=col;
 end
-   Ylimits=get(colorbar,'YLim');
-   %colormap pink;
-   colormap jet;
-   colorbar('YLim',Ylimits,'YTick',Ylimits(1):(Ylimits(2)-Ylimits(1))/10:Ylimits(2),'YTickLabel',eval(sprintf('%.2f',Tmin)):(eval(sprintf('%.2f',Tmax))-eval(sprintf('%.2f',Tmin)))/10:eval(sprintf('%.2f',Tmax)));
+end
+function col = getcolor(x,Colors,Tmax,Tmin)
+ if isnan(x)
+    col=[0; 0; 0];
+ else
+    col=Colors(1+round(249*(x-Tmin)/(Tmax-Tmin)),:)';
+ end
 end
 

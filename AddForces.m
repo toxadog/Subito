@@ -1,26 +1,33 @@
-function Tendons = AddForces(Tendons, Param)
+function IntForces = AddForces(Points,N,L,k)
 %UNTITLED5 Summary of this function goes here
 %   Detailed explanation goes here
-TendS = Param.TendS;
-Elast = Param.Elast;
-pointsdens_new = Param.pointsdens_new;
-names=fieldnames(Tendons);
-for i=1:size(names,1);
-    l0=1/pointsdens_new(i);    
-    if size(Tendons.(char(names(i))),1)==3
-        band=[Tendons.(char(names(i)));zeros(1,size(Tendons.(char(names(i))),2))];
-    else
-        band=Tendons.(char(names(i)));
-    end
-            
-    Ref=band(1:3,1);
-    for j=2:size(band,2);
-        k=Ref-band(1:3,j);
-        Force=sign(modulus(k)-l0)*1e-3*modulus(TendS(i)*Elast(i)*1000*pointsdens_new(i)*k*(modulus(k)-l0)/modulus(k));
-        Ref=band(1:3,j);
-        band(4,j)=Force;
-    end
-    Tendons.(char(names(i)))=band;
+
+[d1,~]=size(Points);
+NNeigmax=size(N,2);
+IntForces=NaN(size(N));
+for i=1:d1
+ pos0=find(N(i,:)==0);
+        if isempty(pos0)
+            NNeig=NNeigmax;
+        else
+            NNeig=pos0(1)-1;
+        end
+        if NNeig~=0
+            Neighbours=zeros(NNeig,3);
+            for counter2 = 1:NNeig
+                    Neighbours(counter2,:)=Points(N(i,counter2),:);
+            end
+            P = Points(i,:);
+            D1=Neighbours-ones(NNeig,3)*diag(P);
+            D2=sqrt(sum(D1.^2,2));
+            disp=D2-L(i,1:NNeig)';
+            mask=maskneg(disp);
+            IntForces(i,1:NNeig)=k*disp'.*mask'/1000;
+        end
+
 end
 end
 
+function mask= maskneg(x)
+mask=sign(abs(x)).*sign(sign(x)+1);
+end
