@@ -36,9 +36,9 @@ Forces(18,:)=MuscleForces(4)*(M4-Points(18,:)')/modulus(M4-Points(18,:)');
 %%
 [Points, D, D2] = PointMove(Points,Neighbours,Forces,Param,L);
 %%
-IntForces = AddForces(Points,Neighbours,L,k1);
+IntForces = AddForces(PointsC,Neighbours,L,k1);
 ColorStr2=makemap(IntForces,Map);
-Tendons2 = iconvTendons(Points ,Map);
+Tendons2 = iconvTendons(PointsC ,Map);
 ForcesStr2=iconvForces(IntForces,Map);
 [Tendons2,ColorStr2,ForcesStr2] = imergeQuad(Tendons2,ColorStr2,ForcesStr2);
 figure;
