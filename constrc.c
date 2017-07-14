@@ -3,9 +3,9 @@
 #include <stdio.h>
 double* constrc(double (*PointsPnt), int(*N), double(*L),int m,int n)
 {
-// 
-    int i,j;
-//     printf("%d", *(N));
+    int i,j,counter,MaxIter;
+    MaxIter=100;
+    for (counter=0;counter<MaxIter;counter++){
     for (i=4;i<m;i++){
         int NNeig=0;
         for (j=0;j<15;j++){
@@ -24,18 +24,33 @@ double* constrc(double (*PointsPnt), int(*N), double(*L),int m,int n)
 			double Pdepl[3]={0,0,0};
             int counter1,counter2;
             for (counter1=0;counter1<NNeig;counter1++)
-                for (counter2=0;counter2<n;counter2++){
-                Neighbours[counter1][counter2]=*(PointsPnt+*(N+i+counter1*m)-1+counter2*m);
-                printf("%f", Neighbours[counter1][counter2]);
-                int NPos=0;
-                }
+                for (counter2=0;counter2<n;counter2++)
+                    Neighbours[counter1][counter2]=*(PointsPnt+*(N+i+counter1*m)-1+counter2*m);
+            int NPos=0;
+            for (counter1=0;counter1<NNeig;counter1++){
+                for (counter2=0;counter2<n;counter2++)
+                    D1[counter1][counter2]=Neighbours[counter1][counter2]-*(PointsPnt+i+counter2*m);
+                        
+                D2[counter1]=sqrt((pow(D1[counter1][1],2.0))+(pow(D1[counter1][2],2.0))+(pow(D1[counter1][3],2.0)));
+                D3[counter1]=(D2[counter1]-*(L+i+counter1*m))/D2[counter1];
+//                 printf("%f", D2[counter1]);
+                if (D3[counter1]>0)
+                    for (counter2=0;counter2<n;counter2++) {
+                    Pdepl[counter2]=Pdepl[counter2]+D1[counter1][counter2]*D3[counter1]*0.5;
+                    NPos=NPos+1;
+                    }
+            }
+            for (counter2=0;counter2<n;counter2++)
+                *(PointsPnt+i+counter2*m)=*(PointsPnt+i+counter2*m)+Pdepl[counter2];
+
         }
     }
+}
+    
     
 // 			{
 //         printf("%d", NNeig);
 
-    
 return PointsPnt;
 }
 void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
