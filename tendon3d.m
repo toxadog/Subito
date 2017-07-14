@@ -18,17 +18,17 @@ hand=Param.hand;
 [M1,M2,M3,M4,PulleyM1,PulleyM3,PulleyM4] = MusclePoints(Param);
 Param.M=[M1 M2 M3 M4 PulleyM1 PulleyM3 PulleyM4];
 %JAngles=(DIP,PIP,MCP)
-JAngles=[10*pi/180,45*pi/180,45*pi/180];
+JAngles=[0*pi/180,0*pi/180,0*pi/180];
 Param.currentbonepoints=BonesConf(JAngles(1),JAngles(2),JAngles(3),Param);
 CreateWindow(Param.currentbonepoints);
 [Tendons Nodes gLines Length]=initial(Param);
 [Points, Neighbours, Map, NElements]=convTendons(Tendons, Nodes, gLines);
 L = createLength(NElements,gLines,Tendons,Length);
-[Points,Neighbours,L,NElements,pos1,pos2]=mergeQuad(Points,Neighbours,L,NElements,35,36);
+[Points,Neighbours,L,NElements,pos1,pos2]=mergeQuad(Points,Neighbours,L,NElements,31,32);
 drawband(Tendons);
 MuscleForces = [0.250*9.8;0.500*9.8;0.250*9.8;0.500*9.8];
 Forces=zeros(size(Points));
-Forces(15,:)=MuscleForces(1)*(M1-Points(16,:)')/modulus(M1-Points(16,:)');
+Forces(15,:)=MuscleForces(1)*(M1-Points(15,:)')/modulus(M1-Points(15,:)');
 Forces(16,:)=MuscleForces(2)*(M2-Points(16,:)')/modulus(M2-Points(16,:)');
 Forces(17,:)=MuscleForces(3)*(M3-Points(17,:)')/modulus(M3-Points(17,:)');
 Forces(18,:)=MuscleForces(4)*(M4-Points(18,:)')/modulus(M4-Points(18,:)');
@@ -45,8 +45,8 @@ figure;
 CreateWindow(Param.currentbonepoints);
 drawbandColor(Tendons2,ColorStr2)
 %%
-[Points2 graderr] = grad(Points2,Neighbours,Forces,L,k1,Param);
-% [Points2 BFGSerr] = BFGS(Points,Neighbours,Forces,L,k1,Param);
+[Points2 graderr] = grad(Points,Neighbours,Forces,L,k1,Param);
+% [Points2 BFGSerr] = BFGS(Points2,Neighbours,Forces,L,k1,Param);
 save('temp.mat','Points2')
 %%
 IntForces = AddForces(Points2,Neighbours,L,k1);

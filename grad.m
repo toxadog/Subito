@@ -2,7 +2,7 @@ function [Points disp] = grad(Points,Neighbours,Force,L,k1,Param)
 %UNTITLED8 Summary of this function goes here
 %   Detailed explanation goes here
 d1=size(Points,1);
-MaxIter = 10;
+MaxIter = 200;
 prec=1e-8;
 counter=1;
 alpha = 1;

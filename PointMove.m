@@ -3,7 +3,7 @@ function [Points, D, D2] = PointMove(Points,Neighbours,Force,Param,L)
 %   Detailed explanation goes here
 NPoints=size(Points,1);
 PointsNew=Points;
-MaxIter = 5;
+MaxIter = 15;
 prec=1e-8;
 counter=1;
 % alpha = 0.0005;
@@ -13,7 +13,7 @@ alpha = 0.02;
 D=zeros(1,MaxIter);
 D2=[];
 while (counter<=MaxIter)
-    Points2=Points+alpha*zeros(size(Force));
+    Points2=Points+alpha*Force;
     [PointsNew d2]= constr(Points2,Neighbours,Param,L);
     D2=[D2; d2];
     depl=sqrt(sum((Points-PointsNew).^2,2));

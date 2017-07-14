@@ -2,14 +2,13 @@ function  [Points D] = constr(Points,N,Param,L)
 %UNTITLED6 Summary of this function goes here
 %   Detailed explanation goes here
 [d1,d2]=size(Points);
-dl=1/Param.pointsdens;
 NNeigmax=size(N,2);
 Points_new=Points;
-MaxIter=50;
+MaxIter=100;
 D=zeros(1,MaxIter);
 for counter=1:MaxIter
-    NP=0;
-for i=5:d1
+    Dispmax=zeros(d1,1);
+for i=1:d1
         pos0=find(N(i,:)==0);
         if isempty(pos0)
             NNeig=NNeigmax;
@@ -27,11 +26,12 @@ for i=5:d1
 %             D2=sqrt(ones(1,NNeig)*(D1*D1'))';
             D3=(D2-L(i,1:NNeig)')./D2;
             disp=D2-L(i,1:NNeig)';
-            disp=mean(disp(disp>0));
-            if ~isnan(disp)
-                D(counter)=D(counter)+mean(disp(disp>0));
+            dispmax=max(disp(disp>0));
+            if ~isnan(dispmax)
+                Dispmax(i)=dispmax;
+            else
+                Dispmax(i)=0;
             end
-            NP=NP+1;
             Pnew=P;
             for iN=1:NNeig
                 if D3(iN)>0
@@ -49,7 +49,7 @@ for i=5:d1
         end
 end
   Points(5:size(Points,1),:)=Points_new(5:size(Points,1),:);
-  D(counter)=D(counter)/NP;
+  D(counter)=max(Dispmax);
 end
 end
 

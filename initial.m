@@ -100,10 +100,10 @@ gLines=[];
 NPg=genNPgrid(Length.g1,pointsdens);
 zone1=[0 0.3; 0.2 1.0]; %transform to[0.3 0.8]
 zone2=[0.7 1.0; 0 0.8];%transform to[0.3 0.8]
-[Tendons.g1, gLines.g1] = CreateGrid(Tendons.n1,Tendons.n3,zone1,PulleyPIPu,Param,NPg);
-[Tendons.g2, gLines.g2] = CreateGrid(Tendons.n1,Tendons.n3,zone2,NaN,Param,NPg);
-[Tendons.g3, gLines.g3] = CreateGrid(Tendons.n2,Tendons.n3,zone2,NaN,Param,NPg);
-[Tendons.g4, gLines.g4] = CreateGrid(Tendons.n2,Tendons.n3,zone1,PulleyPIPr,Param,NPg);
+% [Tendons.g1, gLines.g1] = CreateGrid(Tendons.n1,Tendons.n3,zone1,PulleyPIPu,Param,NPg);
+% [Tendons.g2, gLines.g2] = CreateGrid(Tendons.n1,Tendons.n3,zone2,NaN,Param,NPg);
+% [Tendons.g3, gLines.g3] = CreateGrid(Tendons.n2,Tendons.n3,zone2,NaN,Param,NPg);
+% [Tendons.g4, gLines.g4] = CreateGrid(Tendons.n2,Tendons.n3,zone1,PulleyPIPr,Param,NPg);
 %% Define membrane interpoint distance
 Length.s1=[L(14)  L(3) L(2)];
 Length.m1=[L(15) L(17)  L(19) L(20)];

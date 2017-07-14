@@ -25,9 +25,9 @@ counter=1;
 TendonsConv=zeros(NPoints,3);
 nN=zeros(5,1);
 for i=1:5
-    N=find(NElements(:,1)==i,1, 'last');
-    if ~isempty(N)
-        nN(i)=N;
+    nelem=find(NElements(:,1)==i,1, 'last');
+    if ~isempty(nelem)
+        nN(i)=nelem;
     else
         nN(i)=nN(i-1);
     end
