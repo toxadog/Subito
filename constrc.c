@@ -4,7 +4,7 @@
 void constrc(double (*PointsPnt), int(*N), double(*L),int m,int n)
 {
     int i,j,counter,MaxIter;
-    MaxIter=100000;
+    MaxIter=10000;
     for (counter=0;counter<MaxIter;counter++){
     for (i=4;i<m;i++){
         int NNeig=0;
