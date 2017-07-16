@@ -26,6 +26,7 @@ CreateWindow(Param.currentbonepoints);
 L = createLength(NElements,gLines,Tendons,Length);
 [Points,Neighbours,L,NElements,pos1,pos2]=mergeQuad(Points,Neighbours,L,NElements,31,32);
 drawband(Tendons);
+drawforces(Points,Forces);
 MuscleForces = [0.250*9.8;0.500*9.8;0.250*9.8;0.500*9.8];
 Forces=zeros(size(Points));
 Forces(15,:)=MuscleForces(1)*(M1-Points(15,:)')/modulus(M1-Points(15,:)');
