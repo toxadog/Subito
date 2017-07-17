@@ -1,4 +1,5 @@
 % clc;
+% mex pushoutc_mat.c pushoutc.c minusc.c dotprodc.c sum_a.c modulusc.c point2linec.c
 Param=createParam;
 Param.pointsdens=1;
 Param.precision =1e1;
@@ -37,9 +38,9 @@ Forces(18,:)=MuscleForces(4)*(M4-Points(18,:)')/modulus(M4-Points(18,:)');
 %%
 [Points, D, D2] = PointMove(Points,Neighbours,Forces,Param,L);
 %%
-IntForces = AddForces(PointsC,Neighbours,L,k1);
+IntForces = AddForces(Points,Neighbours,L,k1);
 ColorStr2=makemap(IntForces,Map);
-Tendons2 = iconvTendons(PointsC ,Map);
+Tendons2 = iconvTendons(Points ,Map);
 ForcesStr2=iconvForces(IntForces,Map);
 [Tendons2,ColorStr2,ForcesStr2] = imergeQuad(Tendons2,ColorStr2,ForcesStr2);
 figure;

@@ -1,10 +1,12 @@
 #include "mex.h"
 #include "math.h"
+#include "pushoutc.h"
 #include <stdio.h>
-void constrc(double (*PointsPnt), int(*N), double(*L),int m,int n)
+void constrc(double (*PointsPnt), int(*N), double(*L),double(*hand),double(*bonepoints),int m,int n)
 {
     int i,j,counter,MaxIter;
-    MaxIter=10000;
+    double P[3];
+    MaxIter=100000;
     for (counter=0;counter<MaxIter;counter++){
     for (i=4;i<m;i++){
         int NNeig=0;
@@ -39,9 +41,13 @@ void constrc(double (*PointsPnt), int(*N), double(*L),int m,int n)
                     
                     }
             }
-            if (NPos!=0)
-            for (counter2=0;counter2<n;counter2++)
-                *(PointsPnt+i+counter2*m)=*(PointsPnt+i+counter2*m)+Pdepl[counter2]/NPos;
+            if (NPos!=0){
+                for (counter2=0;counter2<n;counter2++)
+                    *(P+counter2)=*(PointsPnt+i+counter2*m)+Pdepl[counter2]/NPos;
+                pushoutc(P,hand,bonepoints);
+                for (counter2=0;counter2<n;counter2++)
+                    *(PointsPnt+i+counter2*m)=*(P+counter2);
+            }
 //             printf("%d", NPos);
 
         }
@@ -55,12 +61,14 @@ void constrc(double (*PointsPnt), int(*N), double(*L),int m,int n)
 }
 void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 {
-    double *PointsPnt,*L, *pind;
+    double *PointsPnt,*L, *pind, *hand,*bonepoints;
     int* N;
     PointsPnt = mxGetPr(prhs[0]);
     //N must in int32 format
     N=(int*) mxGetData(prhs[1]);
     L = mxGetPr(prhs[2]);
+    hand = mxGetPr(prhs[3]);
+    bonepoints = mxGetPr(prhs[4]);
     //Number of dimentions
     int n = mxGetN(prhs[0]);
     //Number of points
@@ -73,7 +81,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     for (k=0;k<m*n;k++){
         pind[k]=*(PointsPnt+k);
     }
-    constrc(pind,N,L,m,n);
+    constrc(pind,N,L,hand,bonepoints,m,n);
 }
 
 // double constest(double Points[10][3],int N[10][15],double L[10][15])
