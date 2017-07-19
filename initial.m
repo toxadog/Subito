@@ -91,19 +91,22 @@ Tendons.t6=CreateBandConstr(Nodes(:,12),Nodes(:,16),bonepoints(:,2),Param,round(
 Tendons.t7=CreateBandConstr(Nodes(:,14),Nodes(:,17),PulleyIntr,Param,round(L(26)*pointsdens)+1);
 Tendons.t8=CreateBandConstr(Nodes(:,11),Nodes(:,18),PulleyLu,Param,round(L(27)*pointsdens)+1);
 %% Define grid interpoint distance
-Length.g1=[L(15) L(6) L(13)];
-Length.g2=[L(15) L(6) L(13)];
-Length.g3=[L(15) L(7) L(13)];
-Length.g4=[L(15) L(7) L(13)];
+Length.g1=[L(28) L(29)];
+Length.g2=[L(30) L(31)];
+Length.g3=[L(32) L(33)];
+Length.g4=[L(34) L(35)];
 %% Create intercrossing fibers
 gLines=[];
-NPg=genNPgrid(Length.g1,pointsdens);
+NPg1=round(max(Length.g1(1),Length.g1(2))*pointsdens)+1;
+NPg2=round(max(Length.g2(1),Length.g2(2))*pointsdens)+1;
+NPg3=round(max(Length.g3(1),Length.g3(2))*pointsdens)+1;
+NPg4=round(max(Length.g4(1),Length.g4(2))*pointsdens)+1;
 zone1=[0 0.3; 0.2 1.0]; %transform to[0.3 0.8]
 zone2=[0.7 1.0; 0 0.8];%transform to[0.3 0.8]
-% [Tendons.g1, gLines.g1] = CreateGrid(Tendons.n1,Tendons.n3,zone1,PulleyPIPu,Param,NPg);
-% [Tendons.g2, gLines.g2] = CreateGrid(Tendons.n1,Tendons.n3,zone2,NaN,Param,NPg);
-% [Tendons.g3, gLines.g3] = CreateGrid(Tendons.n2,Tendons.n3,zone2,NaN,Param,NPg);
-% [Tendons.g4, gLines.g4] = CreateGrid(Tendons.n2,Tendons.n3,zone1,PulleyPIPr,Param,NPg);
+[Tendons.g1, gLines.g1] = CreateGrid(Tendons.n1,Tendons.n3,zone1,PulleyPIPu,Param,NPg1);
+[Tendons.g2, gLines.g2] = CreateGrid(Tendons.n1,Tendons.n3,zone2,NaN,Param,NPg2);
+[Tendons.g3, gLines.g3] = CreateGrid(Tendons.n2,Tendons.n3,zone2,NaN,Param,NPg3);
+[Tendons.g4, gLines.g4] = CreateGrid(Tendons.n2,Tendons.n3,zone1,PulleyPIPr,Param,NPg4);
 %% Define membrane interpoint distance
 Length.s1=[L(14)  L(3) L(2)];
 Length.m1=[L(15) L(17)  L(19) L(20)];
@@ -120,8 +123,4 @@ Tendons.m1=makeQuad(Nodes(:,12),Nodes(:,13),Nodes(:,10),Nodes(:,9),NPm1h,NPm1v);
 Tendons.m2=makeQuad(Nodes(:,12),Nodes(:,14),Nodes(:,11),Nodes(:,9),NPm2h,NPm2v);
 %% Pushout Tendons
 Tendons=PushoutTendon(Tendons,Param);
-end
-function NP=genNPgrid(Length,pointsdens)
-Diag = sqrt(Length(3)^2+Length(1)^2);
-NP = round(Diag*pointsdens)+1;
 end

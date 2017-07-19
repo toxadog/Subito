@@ -162,5 +162,54 @@
           <CSA> 0.3e-6 </CSA>
           <YOUNGS_MOD>150.00e6</YOUNGS_MOD>
      </TENDON>
+     <GRID>
+          <NUMBER> 17 </NUMBER>
+          <LENGTH> 10 </LENGTH>
+          <CSA> 0.3e-6 </CSA>
+          <YOUNGS_MOD>150.00e6</YOUNGS_MOD>
+     </GRID>
+     <GRID>
+          <NUMBER> 17 </NUMBER>
+          <LENGTH> 30 </LENGTH>
+          <CSA> 0.3e-6 </CSA>
+          <YOUNGS_MOD>150.00e6</YOUNGS_MOD>
+     </GRID>
+     <GRID>
+          <NUMBER> 17 </NUMBER>
+          <LENGTH> 30 </LENGTH>
+          <CSA> 0.3e-6 </CSA>
+          <YOUNGS_MOD>150.00e6</YOUNGS_MOD>
+     </GRID>
+     <GRID>
+          <NUMBER> 17 </NUMBER>
+          <LENGTH> 15 </LENGTH>
+          <CSA> 0.3e-6 </CSA>
+          <YOUNGS_MOD>150.00e6</YOUNGS_MOD>
+     </GRID>
+     <GRID>
+          <NUMBER> 17 </NUMBER>
+          <LENGTH> 30 </LENGTH>
+          <CSA> 0.3e-6 </CSA>
+          <YOUNGS_MOD>150.00e6</YOUNGS_MOD>
+     </GRID>
+     <GRID>
+          <NUMBER> 17 </NUMBER>
+          <LENGTH> 15 </LENGTH>
+          <CSA> 0.3e-6 </CSA>
+          <YOUNGS_MOD>150.00e6</YOUNGS_MOD>
+     </GRID>
+     <GRID>
+          <NUMBER> 17 </NUMBER>
+          <LENGTH> 10 </LENGTH>
+          <CSA> 0.3e-6 </CSA>
+          <YOUNGS_MOD>150.00e6</YOUNGS_MOD>
+     </GRID>
+     <GRID>
+          <NUMBER> 17 </NUMBER>
+          <LENGTH> 30 </LENGTH>
+          <CSA> 0.3e-6 </CSA>
+          <YOUNGS_MOD>150.00e6</YOUNGS_MOD>
+     </GRID>
+     
 
 </TENDONS>

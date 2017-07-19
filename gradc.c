@@ -6,7 +6,7 @@
 void gradc(double (*PointsPnt), int(*N), double(*L),double(*F),double (*k),double(*hand),double(*bonepoints), int m,int n)
 {
     int i,j,counter,MaxIter;
-    MaxIter=10000;
+    MaxIter=1000;
     double dp=0.01;
     double P1[3],P2[3],Pen1,Pen2,shift1[3],shift2[3];
     double alpha=1;
@@ -52,8 +52,6 @@ void gradc(double (*PointsPnt), int(*N), double(*L),double(*F),double (*k),doubl
                         D2[counter2] = sqrt((pow(Neighbours[counter2][0]- Pdepl2[counter1][0],2.0))+(pow(Neighbours[counter2][1]- Pdepl2[counter1][1],2.0))+(pow(Neighbours[counter2][2]- Pdepl2[counter1][2],2.0)))-*(L+i+counter2*m);
                         if (D2[counter2]<0)
                             D2[counter2]=0;
-//                          E1=E1+ pow(D1[counter2]/1000,2.0)*(*k)/2-*(F+i+counter1*m)*dp/1000;
-//                         E2=E2+ pow(D2[counter2]/1000,2.0)*(*k)/2+*(F+i+counter1*m)*dp/1000;
                         for (counter3=0;counter3<n;counter3++){
                              *(P1+counter3)=Pdepl1[counter1][counter3];
                              *(P2+counter3)=Pdepl2[counter1][counter3];

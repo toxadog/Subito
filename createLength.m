@@ -85,8 +85,8 @@ end
 function [L, NodeLink] = neibGrid(dim1,dim2,NP,P,g,Length)
 NodeLink=[];
 L=zeros(dim1*(dim2-2),15);
-dl1=sqrt(Length(1)^2+(Length(2)*(NP(1)-g(1,1))/(NP(1)-1)-Length(3)*(NP(2)-g(2,1))/(NP(2)-1))^2)/(dim2-1);
-dl2=sqrt(Length(1)^2+(Length(3)*(NP(2)-g(2,1))/(NP(2)-1)-Length(3)*(NP(2)-g(2,size(g,2)))/(NP(2)-1))^2)/(dim2-1);
+dl1=Length(1)/(dim2-1);
+dl2=Length(2)/(dim2-1);
 dl=linspace(dl1,dl2,dim1);
 for j1=1:dim1
     P1=P(j1,1);
