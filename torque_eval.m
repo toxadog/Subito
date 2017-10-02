@@ -1,0 +1,9 @@
+Nodes=[4 3 3 3];
+TendForces = getTendonForces(Points2,Param,Penalty,kpen,K,L,Neighbours,Nodes);
+J1=Param.currentbonepoints(:,2)';
+J2=Param.currentbonepoints(:,3)';
+J3=Param.currentbonepoints(:,4)';
+X = [1 0 0];
+Y = [0 1 0];
+Joints=struct('JointPoint',{J1 J1 J2 J3},'JointAxe', {Y X X X}, 'NBone', {1 1 2 3} );
+M = getJointTorques(Joints, Points2, TendForces);

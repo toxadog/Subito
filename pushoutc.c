@@ -1,6 +1,6 @@
 #include "point2linec.h"
 #include "math.h"
-void pushoutc(double (*P),double (*hand),double (*bonepoints)){
+void pushoutc(double (*P),double (*hand),double (*bonepoints),double (*pulleys)){
     int n=3;
     double l1=*(hand);
     double l2=*(hand+1);
@@ -24,7 +24,11 @@ void pushoutc(double (*P),double (*hand),double (*bonepoints)){
     double C4[3]={*(bonepoints+8*n),*(bonepoints+1+8*n),*(bonepoints+2+8*n)};
     double C5[3]={*(bonepoints+9*n),*(bonepoints+1+9*n),*(bonepoints+2+9*n)};
     double C6[3]={*(bonepoints+10*n),*(bonepoints+1+10*n),*(bonepoints+2+10*n)};
-    double Pr1[3],Pr2[3],Pr3[3],Pr4[3];
+    //number of pulleys must be customized 
+    double pulleyR=2;
+    double pulleyInt[2]={*(pulleys),*(pulleys+1)};
+    double pulleyLu[2]={*(pulleys+2),*(pulleys+3)};
+    double Pr1[3],Pr2[3],Pr3[3],Pr4[3],PrPul[3];
     point2linec(P,P1,P2,Pr1);
     point2linec(P,P2,P3,Pr2);
     point2linec(P,P3,P4,Pr3);
@@ -161,6 +165,32 @@ void pushoutc(double (*P),double (*hand),double (*bonepoints)){
                                                          P[2]=P4[2]+R1*temp1[2]/modulusc(temp1);
                                                      }
                                                      else{
+                                                         //pulleys
+                                                         temp1[0]=0;
+                                                         temp1[1]=P[1]-pulleyInt[0];
+                                                         temp1[2]=P[2]-pulleyInt[1];
+                                                         if (10<pulleyR){
+                                                             double Pleft[3]={-100,pulleyInt[0],pulleyInt[1]};
+                                                             double Pright[3]={100,pulleyInt[0],pulleyInt[1]};
+                                                             point2linec(P,Pleft,Pright,PrPul);
+                                                             P[1]=PrPul[1]+pulleyR*temp1[1]/modulusc(temp1);
+                                                             P[2]=PrPul[2]+pulleyR*temp1[2]/modulusc(temp1);
+                                                         }
+                                                         else {
+                                                             temp1[0]=0;
+                                                             temp1[1]=P[1]-pulleyLu[0];
+                                                             temp1[2]=P[2]-pulleyLu[1];
+                                                             if (modulusc(temp1)<pulleyR){
+                                                                 double Pleft[3]={-100,pulleyLu[0],pulleyLu[1]};
+                                                                 double Pright[3]={100,pulleyLu[0],pulleyLu[1]};
+                                                                 point2linec(P,Pleft,Pright,PrPul);
+                                                                 P[1]=PrPul[1]+pulleyR*temp1[1]/modulusc(temp1);
+                                                                 P[2]=PrPul[2]+pulleyR*temp1[2]/modulusc(temp1);
+                                                             }
+                                                             else
+                                                             {
+                                                             }
+                                                         }                                                         
                                                      }
                                                  }
                                              }

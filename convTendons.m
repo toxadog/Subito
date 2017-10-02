@@ -1,4 +1,4 @@
-function [TendonsConv, Neighbours, Map,NElements] = convTendons(Tendons, Nodes, gLines)
+function [TendonsConv, Neighbours, Map,NElements,Penalty] = convTendons(Tendons, Nodes, gLines)
 %UNTITLED7 Summary of this function goes here
 %   Detailed explanation goes here
 load('Connect.mat');
@@ -60,6 +60,6 @@ for i=1:NEl
     counter=counter+NElements(i,2);
 end
 Neighbours=get_Neighbors(NElements,gLines,Tendons);
-
+Penalty=get_Penalty(NElements);
 end
 

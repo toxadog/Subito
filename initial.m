@@ -60,7 +60,8 @@ Nodes(:,14)=local2cart(Kr,DIP,PIP,MCP,Param);
 
 %Muscle attachements
 Nodes(:,15)=Nodes(:,13)+L(25)*(M(:,1)-Nodes(:,13))/modulus(M(:,1)-Nodes(:,13));
-Nodes(:,16)=Nodes(:,12)+L(22)*(M(:,2)-Nodes(:,12))/modulus(M(:,2)-Nodes(:,12));
+% Nodes(:,16)=Nodes(:,12)+L(22)*(M(:,2)-Nodes(:,12))/modulus(M(:,2)-Nodes(:,12));
+Nodes(:,16)=local2cart(createPointLong(J,L(22),Param),DIP,PIP,MCP,Param);
 Nodes(:,17)=Nodes(:,14)+L(26)*(M(:,3)-Nodes(:,14))/modulus(M(:,3)-Nodes(:,14));
 Nodes(:,18)=Nodes(:,11)+L(27)*(M(:,4)-Nodes(:,11))/modulus(M(:,4)-Nodes(:,11));
 
@@ -81,7 +82,7 @@ Length.t8=L(27);
 %% Create pricipal tendons
 Tendons.n1=CreateBandConstr(Nodes(:,6),Nodes(:,10),PulleyPIPu,Param,round(L(6)*pointsdens)+1);
 Tendons.n2=CreateBandConstr(Nodes(:,7),Nodes(:,11),PulleyPIPr,Param,round(L(6)*pointsdens)+1);
-Tendons.n3=CreateBand(Nodes(:,8),Nodes(:,9),round(L(13)*pointsdens)+1);
+Tendons.n3=CreateBandConstr(Nodes(:,8),Nodes(:,9),bonepoints(:,3),Param,round(L(13)*pointsdens)+1);
 Tendons.t1=CreateBand(Nodes(:,1),Nodes(:,5),round(L(1)*pointsdens)+1);
 Tendons.t2=CreateBand(Nodes(:,2),Nodes(:,8),round(L(10)*pointsdens)+1);
 Tendons.t3=CreateBand(Nodes(:,6),Nodes(:,3),round(L(23)*pointsdens)+1);
@@ -95,14 +96,14 @@ Length.g1=[L(28) L(29)];
 Length.g2=[L(30) L(31)];
 Length.g3=[L(32) L(33)];
 Length.g4=[L(34) L(35)];
-%% Create intercrossing fibers
+%% Create intercrossing fibers 
 gLines=[];
-NPg1=round(max(Length.g1(1),Length.g1(2))*pointsdens)+1;
-NPg2=round(max(Length.g2(1),Length.g2(2))*pointsdens)+1;
-NPg3=round(max(Length.g3(1),Length.g3(2))*pointsdens)+1;
-NPg4=round(max(Length.g4(1),Length.g4(2))*pointsdens)+1;
-zone1=[0 0.3; 0.2 1.0]; %transform to[0.3 0.8]
-zone2=[0.7 1.0; 0 0.8];%transform to[0.3 0.8]
+NPg1=round(max(Length.g1(:))*pointsdens)+1;
+NPg2=round(max(Length.g2(:))*pointsdens)+1;
+NPg3=round(max(Length.g3(:))*pointsdens)+1;
+NPg4=round(max(Length.g4(:))*pointsdens)+1;
+zone1=[0 0.7; 0.0 0.7]; %transform to[0.3 0.8]
+zone2=[0.3 1.0; 0.32 1.0];%transform to[0.3 0.8]
 [Tendons.g1, gLines.g1] = CreateGrid(Tendons.n1,Tendons.n3,zone1,PulleyPIPu,Param,NPg1);
 [Tendons.g2, gLines.g2] = CreateGrid(Tendons.n1,Tendons.n3,zone2,NaN,Param,NPg2);
 [Tendons.g3, gLines.g3] = CreateGrid(Tendons.n2,Tendons.n3,zone2,NaN,Param,NPg3);

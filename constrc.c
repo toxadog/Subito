@@ -6,7 +6,7 @@ void constrc(double (*PointsPnt), int(*N), double(*L),double(*hand),double(*bone
 {
     int i,j,counter,MaxIter;
     double P[3];
-    MaxIter=1000;
+    MaxIter=200000;
     for (counter=0;counter<MaxIter;counter++){
     for (i=4;i<m;i++){
         int NNeig=0;

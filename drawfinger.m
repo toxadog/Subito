@@ -41,4 +41,7 @@ surf(haxes,X1,Z1,Y1,'FaceColor','none','EdgeColor',[0.7 0.7 0.7]);
 surf(haxes,X1,Z1,Y1,'FaceColor','none','EdgeColor',[0.7 0.7 0.7]);
 
 set(haxes,'XLimMode','manual','XTick',[],'XTickLabel',[],'YLimMode','manual','YTick',[],'YTickLabel',[],'ZLimMode','manual','ZTick',[],'ZTickLabel',[],'ZLim',[-80 80 ],'XLim',[-80 80 ],'YLim',[0 160 ]);
+set(haxes,'CameraViewAngle',4);
+set(haxes,'View',[150,10]);
+set(haxes,'CameraTarget',[0,80,-20]);
 end

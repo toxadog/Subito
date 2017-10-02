@@ -1,4 +1,4 @@
-function IntForces = AddForces(Points,N,L,k)
+function IntForces = AddForces(Points,N,L,K)
 %UNTITLED5 Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -22,7 +22,7 @@ for i=1:d1
             D2=sqrt(sum(D1.^2,2));
             disp=D2-L(i,1:NNeig)';
             mask=maskneg(disp);
-            IntForces(i,1:NNeig)=k*disp'.*mask'/1000;
+            IntForces(i,1:NNeig)=K(i,1:NNeig).*disp'.*mask'/1000;
         end
 
 end

@@ -38,12 +38,11 @@ switch NElements(i,1)
         L(P1,find(L(P1,:)==0,1,'first'))=dl;
         L(P2,find(L(P2,:)==0,1,'first'))=dl;
         L(counter:counter+NElements(i,2)-1,:)=repmat([dl,dl,zeros(1,Neigmax-2)],dim-2,1);
-    case 4
-       
+    case 4  
         grid=Tendons.(horzcat('g',int2str(i-nN(3))));
-        g=gLines.(horzcat('g',int2str(i-nN(3))));
-        L1=ConnectG(i-nN(3),2);
-        L2=ConnectG(i-nN(3),3);
+        g=gLines.(horzcat('g',int2str(i-nN(3))));% array of boundary point numbers
+        L1=ConnectG(i-nN(3),2);% number of the first framing band
+        L2=ConnectG(i-nN(3),3);% number of the second framing band
         dim1=size(grid,3);
         dim2=size(grid,2);
         P=defineP(dim1,L1,L2,ConnectN,g,NElements,nN(1));
@@ -87,7 +86,8 @@ NodeLink=[];
 L=zeros(dim1*(dim2-2),15);
 dl1=Length(1)/(dim2-1);
 dl2=Length(2)/(dim2-1);
-dl=linspace(dl1,dl2,dim1);
+k=abs(g(2,:)-g(1,:))/abs(g(2,dim1)-g(1,dim1));
+dl=k.*linspace(dl1,dl2,dim1);
 for j1=1:dim1
     P1=P(j1,1);
     P2=P(j1,2);
@@ -103,6 +103,7 @@ for j1=1:dim1
     NodeLink=[NodeLink;P2,dl(j1)];
 end
 end
+
 function [L, NodeLink]=lengthTriangle(dim1,dim2,P1,P2,P3,Length)
 NodeLink=[];
 L=zeros(dim1*(dim2-1)-2,15);

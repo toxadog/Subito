@@ -18,5 +18,6 @@ Param.currentbonepoints=0;
 Param.MaxIter_opt=0;
 Param.Step_opt=0;
 Param.precision_opt=0;
+Param.Pulleys = 0;
 end
 
