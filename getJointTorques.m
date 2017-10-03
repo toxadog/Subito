@@ -21,5 +21,5 @@ function m = getmoment(JointPoint, JointAxe, ForcePoint, Force)
     R=(ForcePoint-JointPoint)*1e-3;
     mtotal = cross(Force,R);
     m=mtotal.*JointAxe;
-    m=m(m~=0);
+    m=m(JointAxe~=0);
 end
